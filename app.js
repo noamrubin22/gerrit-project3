@@ -14,6 +14,11 @@ const MongoStore = require('connect-mongo')(session);
 const flash      = require("connect-flash");
     
 
+const passport = require("passport");
+
+require("./configs/passport");
+
+
 mongoose
   .connect('mongodb://localhost/gerrit-project3', {useNewUrlParser: true})
   .then(x => {
@@ -41,40 +46,57 @@ app.use(require('node-sass-middleware')({
   dest: path.join(__dirname, 'public'),
   sourceMap: true
 }));
-      
-
+    
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
+// session settings
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    store: new MongoStore({
+      mongooseConnection: mongoose.connection
+    })
+  })
+);
 
-hbs.registerHelper('ifUndefined', (value, options) => {
-  if (arguments.length < 2)
-      throw new Error("Handlebars Helper ifUndefined needs 1 parameter");
-  if (typeof value !== undefined ) {
-      return options.inverse(this);
-  } else {
-      return options.fn(this);
-  }
-});
+// passport and session initializations
+// allowing our app to use these libraries
+app.use(passport.initialize());
+app.use(passport.session());
+
+  
+// not necessary
+// hbs.registerHelper('ifUndefined', (value, options) => {
+//   if (arguments.length < 2)
+//       throw new Error("Handlebars Helper ifUndefined needs 1 parameter");
+//   if (typeof value !== undefined ) {
+//       return options.inverse(this);
+//   } else {
+//       return options.fn(this);
+//   }
+// });
   
 
 // default value for title local
-app.locals.title = 'Express - Generated with IronGenerator';
+app.locals.title = 'Gerrit - Project3 ';
 
 
-// Enable authentication using session + passport
-app.use(session({
-  secret: 'irongenerator',
-  resave: true,
-  saveUninitialized: true,
-  store: new MongoStore( { mongooseConnection: mongoose.connection })
-}))
-app.use(flash());
-require('./passport')(app);
+// // Enable authentication using session + passport
+// app.use(session({
+//   secret: 'irongenerator',
+//   resave: true,
+//   saveUninitialized: true,
+//   store: new MongoStore( { mongooseConnection: mongoose.connection })
+// }))
+// app.use(flash());
+// require('./passport')(app);
     
-
+// routes 
 const index = require('./routes/index');
 app.use('/', index);
 

@@ -2,62 +2,94 @@ const express = require("express");
 const passport = require('passport');
 const router = express.Router();
 const User = require("../models/User");
-
-// Bcrypt to encrypt passwords
 const bcrypt = require("bcrypt");
-const bcryptSalt = 10;
 
 
-router.get("/login", (req, res, next) => {
-  res.render("auth/login", { "message": req.flash("error") });
-});
+router.post("/signup", (req, res) => {
+  const {
+    username,
+    password
+  } = req.body;
 
-router.post("/login", passport.authenticate("local", {
-  successRedirect: "/",
-  failureRedirect: "/auth/login",
-  failureFlash: true,
-  passReqToCallback: true
-}));
-
-router.get("/signup", (req, res, next) => {
-  res.render("auth/signup");
-});
-
-router.post("/signup", (req, res, next) => {
-  const username = req.body.username;
-  const password = req.body.password;
-  if (username === "" || password === "") {
-    res.render("auth/signup", { message: "Indicate username and password" });
-    return;
+  if (!username) {
+    return res.status(400).json({
+      message: "Please provide a username"
+    });
+  }
+  if (password.length < 7) {
+    return res.status(400).json({
+      messsage: "Password should have at least 7 characters "
+    });
   }
 
-  User.findOne({ username }, "username", (err, user) => {
-    if (user !== null) {
-      res.render("auth/signup", { message: "The username already exists" });
-      return;
-    }
-
-    const salt = bcrypt.genSaltSync(bcryptSalt);
-    const hashPass = bcrypt.hashSync(password, salt);
-
-    const newUser = new User({
-      username,
-      password: hashPass
-    });
-
-    newUser.save()
-    .then(() => {
-      res.redirect("/");
+  User.findOne({
+      username: username
+    })
+    .then(found => {
+      if (found) {
+        return res.status(400).json({
+          message: "Username is already taken"
+        });
+      }
+      return bcrypt
+        .genSalt()
+        .then(salt => {
+          return bcrypt.hash(password, salt);
+        })
+        .then(hash => {
+          return User.create({
+            username: username,
+            password: hash
+          });
+        })
+        .then(newUser => {
+          // passport login
+          req.login(newUser, err => {
+            if (err) res.status(500).json(err);
+            else res.json(newUser);
+          });
+        })
+        .catch(err => {
+          res.status(500).json(err);
+        });
     })
     .catch(err => {
-      res.render("auth/signup", { message: "Something went wrong" });
-    })
-  });
+      res.status(500).json(err);
+    });
 });
 
-router.get("/logout", (req, res) => {
+router.post("/login", (req, res, next) => {
+  passport.authenticate("local", (err, user) => {
+    if (err) {
+      return res.status(500).json({
+        message: "Error while authenticating"
+      })
+    }
+    if (!user) {
+      // no user found with username or password didn't match
+      return res.status(400).json({
+        message: "Invalid credentials"
+      })
+    }
+    // passport req.login 
+    // creates the passport session
+    req.login(user, (err) => {
+      if (err) res.status(500).json(err)
+      res.json(user);
+    })
+  })(req, res, next);
+})
+
+router.delete("/logout", (req, res) => {
+  // passport logout function
   req.logout();
-  res.redirect("/");
-});
+  res.json({
+    message: "Logout was succesful"
+  })
+})
+
+router.get("/loggedin", (req, res) => {
+  res.json(req.user);
+})
 
 module.exports = router;

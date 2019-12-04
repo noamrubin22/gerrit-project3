@@ -3,7 +3,14 @@ const Schema   = mongoose.Schema;
 
 const userSchema = new Schema({
   username: String,
-  password: String
+  password: String,
+  image: String,
+  quote: String,
+  geolocation: [Number],
+  chatroom: {
+    type: Schema.Types.ObjectId,
+    ref: "Chatroom"
+  }
 }, {
   timestamps: {
     createdAt: 'created_at',

@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { signup } from "../services/auth";
+import React, { Component, useState, useEffect } from "react";
+import { login } from "../services/auth";
 import { Alert, Form, Button } from "react-bootstrap";
 
-const Signup = props => {
+const Login = props => {
   const [credentials, setCredentials] = useState({
     username: "",
     password: ""
@@ -19,9 +19,10 @@ const Signup = props => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    signup(props.username, props.password).then(data => {
+    login(props.username, props.password).then(data => {
       if (data.message) {
         setError(data.message);
+        console.log(data.message);
       } else {
         // lift the data up to the App state
         props.setUser(data);
@@ -33,7 +34,7 @@ const Signup = props => {
 
   return (
     <div>
-      <h2>Sign up</h2>
+      <h2>Login</h2>
       <Form onSubmit={handleSubmit}>
         <Form.Group>
           <Form.Label htmlFor="username">Username: </Form.Label>
@@ -56,9 +57,9 @@ const Signup = props => {
           />
         </Form.Group>
         {error && <Alert variant="danger">{error}</Alert>}
-        <Button type="submit">Sign up</Button>
+        <Button type="submit">Log in</Button>
       </Form>
     </div>
   );
 };
-export default Signup;
+export default Login;

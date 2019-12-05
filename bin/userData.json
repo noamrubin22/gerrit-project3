@@ -1,0 +1,44 @@
+[
+  {
+      "username": "Cocoapuff",
+      "firstName": "Montasar",
+      "lastName": "Jarraya",
+      "password": "qwertyui",
+      "picture": "https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2802&q=80"
+  },
+  {
+      "username": "Pipo",
+      "firstName": "Pierre",
+      "lastName": "Portal",
+      "password": "qwertyui",
+      "picture": "https://images.unsplash.com/photo-1548544149-4835e62ee5b3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80"
+  },
+  {
+      "username": "Dalidada",
+      "firstName": "Dalina",
+      "lastName": "Weidinger",
+      "password": "qwertyui",
+      "picture": "https://images.unsplash.com/photo-1514846326710-096e4a8035e0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80"
+  },
+  {
+      "username": "Mastermin",
+      "firstName": "Min",
+      "lastName": "Sheng Ang",
+      "password": "qwertyui",
+      "picture": "https://images.unsplash.com/photo-1543246239-7ae3ded686ec?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2757&q=80"
+  },
+  {
+      "username": "Cssqueen",
+      "firstName": "Svenja",
+      "lastName": "Weiler",
+      "password": "qwertyui",
+      "picture": "https://media.tenor.com/images/0a1665a07d1021e6061c2fa38072f223/tenor.png"
+  },
+  {
+      "username": "andre",
+      "firstName": "Andre",
+      "lastName": "De Albuquerc",
+      "password": "qwertyui",
+      "picture": "https://images.unsplash.com/photo-1541647376583-8934aaf3448a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80"
+  }
+]

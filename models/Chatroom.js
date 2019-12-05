@@ -4,8 +4,11 @@ const Schema   = mongoose.Schema;
 const chatroomSchema = new Schema({
   users:[String],
   location: [Number],
-  messages: [String],
-  namespace: [String]
+  messages: [{
+    type:Schema.Types.ObjectId,
+    ref: 'message'
+  }],
+  namespace: String
 }, {
   timestamps: {
     createdAt: 'created_at',

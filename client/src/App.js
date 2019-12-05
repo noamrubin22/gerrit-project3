@@ -1,24 +1,34 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import routes from './routes'
+import { Switch, Route, Redirect } from 'react-router-dom'
 
-function App() {
+
+
+function ProtectedRoute(props) {
+
+  const attempt = props.path
+
+  if (props.private && !props.user) {
+
+    return <Redirect to={{ pathname: '/login', attempt }} />
+  }
+  return <Route key={props.path} path={props.path} exact={props.exact} private={props.private} render={() => <props.component {...props} />} />
+}
+
+
+function App(props) {
+
+  const routing = routes.map(x => {
+
+    return <ProtectedRoute key={x.path} {...x} {...props} />
+  })
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          GERRIT #love
-        </a>
-      </header>
+      <Switch>
+        {routing}
+      </Switch>
     </div>
   );
 }

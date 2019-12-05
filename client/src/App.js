@@ -3,25 +3,28 @@ import { Route, Redirect } from "react-router-dom";
 import "./App.css";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
-import Navbar from './components/Navbar';
+import Navbar from "./components/Navbar";
+import Profile from "./components/Profile";
 
 const App = props => {
   const [user, setUser] = useState(props.user);
+
   return (
     <div className="App">
       <Route
-          exact
-          path="/signup"
-          // component={Signup}
-          render={props => <Signup {...props} setUser={setUser} />}
-        />
+        exact
+        path="/signup"
+        // component={Signup}
+        render={props => <Signup {...props} setUser={setUser} />}
+      />
       <Route
-          exact
-          path="/login"
-          render={props => <Login {...props} setUser={setUser} />}
-        />
+        exact
+        path="/login"
+        render={props => <Login {...props} setUser={setUser} />}
+      />
 
-      <Navbar/>
+      <Route exact path="/profile" component={Profile} />
+      <Navbar user={user} clearUser={setUser} />
     </div>
   );
 };

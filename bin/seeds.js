@@ -108,10 +108,12 @@ const verticalBucketsAmount = 2;
 
 let geoBuckets = getGeoBuckets(initialCoordinates, sideLength, horizontalBucketsAmount, verticalBucketsAmount);
 
-Chatroom.create(users)
+Chatroom.deleteMany()
+  .then(() => {
+    return Chatroom.create(geoBuckets)
+  })
   .then(bucketsCreated => {
-    console.log("success");
-
+    console.log(`${bucketsCreated.length} users created with the following id:`)
   })
   .then( () => {
     mongoose.disconnect();
@@ -120,4 +122,3 @@ Chatroom.create(users)
     mongoose.disconnect()
     throw err
   })
-  

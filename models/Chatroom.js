@@ -3,7 +3,7 @@ const Schema   = mongoose.Schema;
 
 const chatroomSchema = new Schema({
   users:[String],
-  location: [Number],
+  location: [Array],
   messages: [{
     type:Schema.Types.ObjectId,
     ref: 'message'

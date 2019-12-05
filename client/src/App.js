@@ -5,12 +5,14 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Navbar from "./components/Navbar";
 import Profile from "./components/Profile";
+import Chat from "./components/Chat"
 
 const App = props => {
   const [user, setUser] = useState(props.user);
 
   return (
     <div className="App">
+      <Navbar user={user} clearUser={setUser} />
       <Route
         exact
         path="/signup"
@@ -22,9 +24,8 @@ const App = props => {
         path="/login"
         render={props => <Login {...props} setUser={setUser} />}
       />
-
+      <Route exact path="/chat" component={Chat} />
       <Route exact path="/profile" component={Profile} />
-      <Navbar user={user} clearUser={setUser} />
     </div>
   );
 };

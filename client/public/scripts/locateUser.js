@@ -20,10 +20,16 @@ const getGeoBuckets = (initialCoordinates, sideLength, horizontalBucketsAmount, 
               bucketTopLeft = [...initialCoordinates];
           }
           //here we could insert a function to insert each bucket into the database (--> mongoose)
-          let currentBucket = new GeoBucket(bucketTopLeft, sideLength, counter);
-          console.log(currentBucket.bucketId);
-          console.log(currentBucket.area);
-          //geoBuckets.push(new GeoBucket(bucketTopLeft, sideLength, counter));
+          let newBucket = new GeoBucket(bucketTopLeft, sideLength, counter);
+          let currentBucketId = newBucket.bucketId;
+          let currentBucketArea = newBucket.area;
+          let currentBucket = {
+            users: [],
+            location: currentBucketArea,
+            messages: [],
+            namespace: currentBucketId
+          }
+          geoBuckets.push(currentBucket);
           bucketTopLeft[1] += sideLength;
           if (j === horizontalBucketsAmount - 1) {
               bucketTopLeft[1] = initialCoordinates[1]
@@ -33,7 +39,7 @@ const getGeoBuckets = (initialCoordinates, sideLength, horizontalBucketsAmount, 
       }
       bucketTopLeft[0] -= sideLength;
   }
-  
+  console.log(geoBuckets);
   return geoBuckets;
 }
 

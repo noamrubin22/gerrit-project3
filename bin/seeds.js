@@ -87,8 +87,8 @@ const getGeoBuckets = (initialCoordinates, sideLength, horizontalBucketsAmount, 
             messages: [],
             namespace: currentBucketId
           }
+          geoBuckets.push(currentBucket);
           
-        
           bucketTopLeft[1] += sideLength;
           if (j === horizontalBucketsAmount - 1) {
               bucketTopLeft[1] = initialCoordinates[1]
@@ -98,6 +98,7 @@ const getGeoBuckets = (initialCoordinates, sideLength, horizontalBucketsAmount, 
       }
       bucketTopLeft[0] -= sideLength;
   }
+  return geoBuckets
 }
 
 const initialCoordinates = [52.509463, 13.389967];
@@ -106,3 +107,17 @@ const horizontalBucketsAmount = 3;
 const verticalBucketsAmount = 2;
 
 let geoBuckets = getGeoBuckets(initialCoordinates, sideLength, horizontalBucketsAmount, verticalBucketsAmount);
+
+Chatroom.create(users)
+  .then(bucketsCreated => {
+    console.log("success");
+
+  })
+  .then( () => {
+    mongoose.disconnect();
+  })
+  .catch(err => {
+    mongoose.disconnect()
+    throw err
+  })
+  

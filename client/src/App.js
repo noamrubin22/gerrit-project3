@@ -4,11 +4,13 @@ import "./App.css";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Navbar from './components/Navbar';
+import Chat from './components/Chat';
 
 const App = props => {
   const [user, setUser] = useState(props.user);
   return (
     <div className="App">
+      <Navbar/>
       <Route
           exact
           path="/signup"
@@ -20,8 +22,7 @@ const App = props => {
           path="/login"
           render={props => <Login {...props} setUser={setUser} />}
         />
-
-      <Navbar/>
+      <Route exact path="/chat" render={props => <Chat {...props} /> } />
     </div>
   );
 };

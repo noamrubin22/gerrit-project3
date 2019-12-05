@@ -3,7 +3,7 @@ import { Route, Redirect } from "react-router-dom";
 import "./App.css";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
-/* import Navbar from "./components/Navbar"; */
+import Navbar from './components/Navbar';
 
 const App = props => {
   const [user, setUser] = useState(props.user);
@@ -11,6 +11,7 @@ const App = props => {
     <div className="App">
       <Login setUser={setUser} />
       <Signup setUser={setUser} />
+      <Navbar/>
     </div>
   );
 };

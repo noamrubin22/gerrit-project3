@@ -3,7 +3,7 @@
 const getGeoBuckets = (initialCoordinates, sideLength, horizontalBucketsAmount, verticalBucketsAmount) => {
   class GeoBucket {
       constructor(initialCoordinates, sideLength, bucketIndex) {
-          this.id = "bucket" + bucketIndex;
+          this.bucketId = "bucket" + bucketIndex;
           this.latitudeRange = [initialCoordinates[0], initialCoordinates[0] - sideLength];
           this.longitudeRange = [initialCoordinates[1], initialCoordinates[1] + sideLength];
           this.area = [this.latitudeRange, this.longitudeRange];
@@ -20,7 +20,10 @@ const getGeoBuckets = (initialCoordinates, sideLength, horizontalBucketsAmount, 
               bucketTopLeft = [...initialCoordinates];
           }
           //here we could insert a function to insert each bucket into the database (--> mongoose)
-          geoBuckets.push(new GeoBucket(bucketTopLeft, sideLength, counter));
+          let currentBucket = new GeoBucket(bucketTopLeft, sideLength, counter);
+          console.log(currentBucket.bucketId);
+          console.log(currentBucket.area);
+          //geoBuckets.push(new GeoBucket(bucketTopLeft, sideLength, counter));
           bucketTopLeft[1] += sideLength;
           if (j === horizontalBucketsAmount - 1) {
               bucketTopLeft[1] = initialCoordinates[1]

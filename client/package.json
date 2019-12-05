@@ -8,6 +8,7 @@
     "bcryptjs": "^2.4.3",
     "bootstrap": "^4.4.1",
     "express-session": "^1.17.0",
+    "mdbreact": "^4.23.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "react": "^16.12.0",

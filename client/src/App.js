@@ -9,8 +9,18 @@ const App = props => {
   const [user, setUser] = useState(props.user);
   return (
     <div className="App">
-      <Login setUser={setUser} />
-      <Signup setUser={setUser} />
+      <Route
+          exact
+          path="/signup"
+          // component={Signup}
+          render={props => <Signup {...props} setUser={setUser} />}
+        />
+      <Route
+          exact
+          path="/login"
+          render={props => <Login {...props} setUser={setUser} />}
+        />
+
       <Navbar/>
     </div>
   );

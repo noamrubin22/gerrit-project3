@@ -19,5 +19,3 @@ const chatroomSchema = new Schema({
 const Chatroom = mongoose.model("Chatroom", chatroomSchema);
 module.exports = Chatroom;
 
-const mongoose = require('mongoose');
-const Schema   = mongoose.Schema;

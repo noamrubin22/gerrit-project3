@@ -19,7 +19,7 @@ const Signup = props => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    signup(props.username, props.password).then(data => {
+    signup(credentials.username, credentials.password).then(data => {
       if (data.message) {
         setError(data.message);
       } else {

@@ -19,7 +19,7 @@ const Login = props => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    login(props.username, props.password).then(data => {
+    login(credentials.username, credentials.password).then(data => {
       if (data.message) {
         setError(data.message);
         console.log(data.message);

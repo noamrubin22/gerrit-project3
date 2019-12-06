@@ -18,21 +18,30 @@ const Chat = () => {
   //when the component is mounted, it starts listening for events of the type "message"
   //if such an event is noticed, the state "display" is changegd, so that the messageg is displayed above the input form
   useEffect(() => {
-    console.log("hi")
+    // console.log("hi")
     socket.on("message", input => {
       setDisplay(input);
     });
   });
 
-
-  
   const handleSubmit = event => {
     event.preventDefault();
 
     //when the form is submitted a message is emitted
     socket.emit("message", input)
+
+    axios.get("/chat")
+      .then((response) => {
+          console.log(response.data)
+          // setDisplay(messageHistory)
+          // console.log("messages found", messageHistory);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+
     // console.log(req.user);
-    console.log(event);
+    // console.log(event);
     axios.post("/chat", {input})
       .then(() => console.log("send"))
       .catch(err => console.log(err))

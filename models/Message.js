@@ -1,3 +1,6 @@
+const mongoose = require('mongoose');
+const Schema   = mongoose.Schema;
+
 const messageSchema = new Schema({
   content: String,
   posted_by: {
@@ -11,5 +14,5 @@ const messageSchema = new Schema({
   }
 });
 
-const Message = mongoose.model('User', messageSchema);
+const Message = mongoose.model('Message', messageSchema);
 module.exports = Message;

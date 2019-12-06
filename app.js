@@ -85,7 +85,6 @@ app.use(passport.session());
 // default value for title local
 app.locals.title = 'Gerrit - Project3 ';
 
-
 // // Enable authentication using session + passport
 // app.use(session({
 //   secret: 'irongenerator',
@@ -102,6 +101,11 @@ app.use('/', index);
 
 const authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);
-      
+
+const chatRoutes = require('./routes/chat');
+app.use('/chat', chatRoutes);
+
+const profileRoutes = require('./routes/profile');
+app.use('/profile', profileRoutes);
 
 module.exports = app;

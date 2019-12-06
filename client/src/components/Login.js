@@ -27,7 +27,7 @@ const Login = props => {
         // lift the data up to the App state
         props.setUser(data);
         //redirect
-        props.history.push("/chatroom");
+        props.history.push("/chat")
       }
     });
   };

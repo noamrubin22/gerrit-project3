@@ -15,7 +15,7 @@ router.get("/", (req, res) => {
       User.findById(el.posted_by)
         .then(found => {
 
-          console.log(found.username, el.content)
+          console.log(el.content)
         })
         .catch(err => {
           console.log("NOOO USER", err)

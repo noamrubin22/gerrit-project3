@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import socketIOClient from "socket.io-client";
+import Message from "./Message";
 
 const endpoint = "http://localhost:5555"; // socket io connection
 const socket = socketIOClient(endpoint);
@@ -8,7 +9,7 @@ const socket = socketIOClient(endpoint);
 const Chat = () => {
   const [input, setInput] = useState("");
   const [user, setUser] = useState("");
-  const [display, setDisplay] = useState("");
+  const [display, setDisplay] = useState([]);
 
   const handleInputChange = event => {
     setInput(event.target.value);
@@ -18,27 +19,18 @@ const Chat = () => {
   //when the component is mounted, it starts listening for events of the type "message"
   //if such an event is noticed, the state "display" is changegd, so that the messageg is displayed above the input form
   useEffect(() => {
-    // console.log("hi")
-    socket.on("message", input => {
-      setDisplay(input);
+    console.log("hi")
+    socket.on("message", foo => {
+      setDisplay(foo);
+      // console.log(foo);
     });
-  });
+  }, []);
 
   const handleSubmit = event => {
     event.preventDefault();
 
     //when the form is submitted a message is emitted
     socket.emit("message", input)
-
-    axios.get("/chat")
-      .then((response) => {
-          console.log(response.data)
-          // setDisplay(messageHistory)
-          // console.log("messages found", messageHistory);
-        })
-        .catch(err => {
-          console.log(err);
-        })
 
     // console.log(req.user);
     // console.log(event);
@@ -49,10 +41,19 @@ const Chat = () => {
     setInput("")
   }
   
+  
+  console.log(display);
+
   return (
     <div style={{backgroundColor: "pink"}}>
       <h1>Chatroom</h1>
-      <h2>{display}</h2>
+      <div>
+      {display.map(message => {
+        return(
+          <Message message={message}/>
+        )
+      })}
+      </div>
       <form onSubmit={handleSubmit}>
         <input type="text" name="input" value={input} placeholder="Type something here.." onChange={handleInputChange}/>
         <button type="submit">Submit</button>

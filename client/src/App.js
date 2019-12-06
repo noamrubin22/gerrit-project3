@@ -24,11 +24,22 @@ const App = props => {
         path="/login"
         render={props => <Login {...props} setUser={setUser} />}
       />
-      <Route 
-        exact path="/chat" 
-        render={props => <Chat {...props} user={user} />} 
-      />
-      <Route exact path="/profile" component={Profile} />
+      <Route exact path="/chat" render={props => {
+        // only users can get into chat
+        if (user) {
+          return <Chat {...props} user={user} />;
+        } else {
+          return <Redirect to="/" />
+        }
+      }} />
+      <Route exact path="/profile" render={props => {     
+      // only users can get into chat
+        if (user) {
+          return <Profile {...props} user={user}/>;
+        } else {
+          return <Redirect to="/" />
+        }
+      }} />
     </div>
   );
 };

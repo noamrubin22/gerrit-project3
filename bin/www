@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-const Message = require("../models/Message");
 
 const http = require('http');
 
@@ -69,6 +68,7 @@ io.on('connection', socket => {
       //   })
 
         
+        io.emit("message", data);
 
         // if (data.type === 'message') {
 

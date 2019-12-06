@@ -6,7 +6,7 @@ import Message from "./Message";
 const endpoint = "http://localhost:5555"; // socket io connection
 const socket = socketIOClient(endpoint);
 
-const Chat = () => {
+const Chat = props => {
   const [input, setInput] = useState("");
   const [user, setUser] = useState("");
   const [display, setDisplay] = useState([]);
@@ -19,38 +19,48 @@ const Chat = () => {
   //when the component is mounted, it starts listening for events of the type "message"
   //if such an event is noticed, the state "display" is changegd, so that the messageg is displayed above the input form
   useEffect(() => {
-    console.log("hi")
+    setUser(props.user);
+
+    axios.get("/chat")
+        .then(messages => {
+          console.log(messages.data);
+          setDisplay(messages.data);
+        })
+        .catch(err => console.log(err));
+
     socket.on("message", foo => {
-      setDisplay(foo);
-      // console.log(foo);
+      
+      axios.get("/chat")
+        .then(messages => {
+          console.log(messages.data);
+          setDisplay(messages.data);
+        })
+        .catch(err => console.log(err));
+
     });
   }, []);
-
+  
   const handleSubmit = event => {
     event.preventDefault();
-
+    
     //when the form is submitted a message is emitted
-    socket.emit("message", input)
-
+    
     // console.log(req.user);
     // console.log(event);
-    axios.post("/chat", {input})
-      .then(() => console.log("send"))
+    axios.post("/chat", ({message:input, user:user}))
+      .then(() => socket.emit("message", input))
       .catch(err => console.log(err))
     // clean form after message is sent
     setInput("")
   }
-  
-  
-  console.log(display);
 
   return (
     <div style={{backgroundColor: "pink"}}>
       <h1>Chatroom</h1>
       <div>
-      {display.map(message => {
+      {display.map((message, index) => {
         return(
-          <Message message={message}/>
+          <Message user={user} message={message} key={index}/>
         )
       })}
       </div>

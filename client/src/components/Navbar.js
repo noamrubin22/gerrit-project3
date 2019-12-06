@@ -32,7 +32,6 @@ const Navbar = props => {
       />
       {backdrop}
       <main style={{ marginTop: "64px" }}>
-        <p>This is the page content!</p>
       </main>
     </div>
   );

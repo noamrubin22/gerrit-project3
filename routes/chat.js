@@ -8,33 +8,39 @@ const User = require("../models/User");
 
 /* GET home page */
 router.get("/", (req, res) => {
-  Message.find().then(response => {
-    // for each message
-    const messageHistory = response.map((el => {
-      // find user
-      User.findById(el.posted_by)
-        .then(found => {
-
-          console.log(el.content)
-        })
-        .catch(err => {
-          console.log("NOOO USER", err)
-        })
-        return el.content;
-    }))
-    res.json(response);
-  }).catch(err => {
-    console.log(err);
-  })
+  Message.find()
+    .populate("posted_by")
+    .then(response => {
+      let data = response.map(message => {
+        let {_id, content, created_at} = message;
+        let {username, geolocation} = message.posted_by;
+        let userId = message.posted_by._id;
+            return {
+              messageId: _id,
+              content: content,
+              created_at: created_at,
+              username: username,
+              userId: userId,
+              geolocation: geolocation
+            }
+      })
+      res.json(data);
+    }) 
+    .catch(err => {
+      console.log(err);
+    })
 });
 
 /* pushes new message in the database */
 router.post("/", (req, res) => {
-
-  Message.create({
-    content: req.body.input,
-    posted_by: req.user
-   })
+  console.log("messagge posted:", req.body);
+  if (req.body.user) {
+    Message.create({
+      content: req.body.message,
+      posted_by: req.user._id
+    })
+  }
+   
   res.json({message: "Post was successful"});
 });
 

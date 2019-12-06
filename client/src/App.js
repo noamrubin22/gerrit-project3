@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import "./App.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Login from "./components/Login";
@@ -7,7 +7,7 @@ import Signup from "./components/Signup";
 import Navbar from "./components/Navbar";
 import Profile from "./components/Profile";
 import Map from "./components/Map";
-import Chat from "./components/Chat"
+import Chat from "./components/Chat";
 
 const App = props => {
   const [user, setUser] = useState(props.user);
@@ -29,22 +29,30 @@ const App = props => {
         <Map />
       </Route>
       <Navbar user={user} clearUser={setUser} />
-      <Route exact path="/chat" render={props => {
-        // only users can get into chat
-        if (user) {
-          return <Chat {...props} user={user} />;
-        } else {
-          return <Redirect to="/" />
-        }
-      }} />
-      <Route exact path="/profile" render={props => {     
-      // only users can get into chat
-        if (user) {
-          return <Profile {...props} user={user}/>;
-        } else {
-          return <Redirect to="/" />
-        }
-      }} />
+      <Route
+        exact
+        path="/chat"
+        render={props => {
+          // only users can get into chat
+          if (user) {
+            return <Chat {...props} user={user} />;
+          } else {
+            return <Redirect to="/" />;
+          }
+        }}
+      />
+      <Route
+        exact
+        path="/profile"
+        render={props => {
+          // only users can get into chat
+          if (user) {
+            return <Profile {...props} user={user} />;
+          } else {
+            return <Redirect to="/" />;
+          }
+        }}
+      />
     </div>
   );
 };

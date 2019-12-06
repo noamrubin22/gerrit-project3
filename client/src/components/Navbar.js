@@ -1,5 +1,4 @@
-import React, { Component, useState } from "react";
-
+import React, { useState } from "react";
 import Toolbar from "./Toolbar/Toolbar";
 import SideDrawer from "./SideDrawer/SideDrawer";
 import Backdrop from "./Backdrop/Backdrop";
@@ -31,9 +30,7 @@ const Navbar = props => {
         clearUser={props.clearUser}
       />
       {backdrop}
-      <main style={{ marginTop: "64px" }}>
-        <p>This is the page content!</p>
-      </main>
+      <main style={{ marginTop: "64px" }}></main>
     </div>
   );
 };

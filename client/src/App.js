@@ -24,7 +24,8 @@ const App = props => {
         path="/login"
         render={props => <Login {...props} setUser={setUser} />}
       />
-      <Route exact path="/chat" component={Chat} />
+      <Route exact path="/chat" render={props => <Chat user={user}/>}
+      />
       <Route exact path="/profile" component={Profile} />
     </div>
   );

@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Button, Form } from "react-bootstrap";
+// const uploadCloud = require("../cloudinary");
 
 const Profile = props => {
-  const [user, setUser] = useState({
-    quote: ""
-  });
+  const [user, setUser] = useState(props.user);
   const [editForm, setEditForm] = useState(false);
   const [quote, setQuote] = useState("");
+  const [messages, setMessages] = useState(null);
+  const [image, setImage] = useState("");
 
-  console.log(props.user);
+  console.log("user props", props.user);
   const date = props.user.created_at;
 
   // first mount
@@ -18,8 +19,7 @@ const Profile = props => {
     axios
       .get("/profile")
       .then(response => {
-        console.log(response.data);
-        setUser(response.data);
+        setMessages(response.data.messages);
       })
       .catch(err => {
         if (err.response.status === 404) {
@@ -31,17 +31,17 @@ const Profile = props => {
 
   useEffect(() => {
     console.log("Quote is being changed");
-  }, [quote]);
+  }, [quote, image]);
 
   useEffect(() => {
     console.log("mounted or updated");
   }, []);
 
-  useEffect(() => {
-    return () => {
-      console.log("unmount");
-    };
-  }, []);
+  // useEffect(() => {
+  //   return () => {
+  //     console.log("unmount");
+  //   };
+  // }, []);
 
   const toggleEditForm = () => {
     // edit form when button is clicked
@@ -49,43 +49,58 @@ const Profile = props => {
   };
 
   const handleChange = event => {
-    // console.log(event.target.value);
     setQuote(event.target.value);
   };
 
-  const handleSubmit = event => {
-    event.preventDefault();
-    console.log("quote", { quote });
+  const handleUpload = event => {
+    console.log("The file to be uploaded is: ", event.target.files[0]);
+
+    const uploadData = new FormData();
+    // imageUrl => this name has to be the same as in the model since we pass
+    // req.body to .create() method when creating a new thing in '/api/things/create' POST route
+    uploadData.append("image", event.target.files[0]);
     axios
-      .put("/profile", { quote })
+      .post("/upload", uploadData)
       .then(response => {
-        setUser(response.data);
-        setQuote(response.data.quote);
-        console.log("resssssssssssss", response.data);
+        console.log(response.data);
+        const image = response.data.secure_url;
+        setImage(image);
       })
       .catch(err => {
         console.log(err);
       });
   };
-  console.log(user);
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    axios
+      .put("/profile", { quote, image })
+      .then(response => {
+        setUser(response.data);
+        setQuote(response.data.quote);
+
+        // setMessages(response.data.messsages);
+        // console.log("resssssssssssss", response.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+  console.log("USAR", user);
   return (
     <div>
-      <h1>Profile page</h1>
+      <h1>Profile</h1>
+      <img src={user.image} height="150px" />
       <h2>{props.user.username}</h2>
-      {/* if quote exist, show, same for picture */}
-      {/* <h2>quote</h2> */}
-      {/* <h2>upload picture</h2> */}
-      <h2>
+      <h5>
         gerriting since{" "}
         {date.slice(8, 10) + "-" + date.slice(5, 7) + "-" + date.slice(0, 4)}
-      </h2>
-      {user.quote && <h5>{user.quote}</h5>}
+      </h5>
+      <h5>has sent {messages} messages</h5>
+      {user.quote && <h5>Quote: "{user.quote}"</h5>}
       {/* amount of messages send */}
-      {/* friends?? */}
-      {/* button for editing profile */}
-      <button onClick={toggleEditForm}>Edit profile</button>
+      {/* <Button onClick={toggleEditForm}>Edit profile</Button> */}
       <Form onSubmit={handleSubmit}>
-        <h2>Edit Profile</h2>
         <Form.Group>
           <Form.Label htmlFor="quote">Quote: </Form.Label>
           <Form.Control
@@ -94,6 +109,11 @@ const Profile = props => {
             value={quote}
             onChange={handleChange}
           />
+          {/* upload new image button */}
+        </Form.Group>
+        <Form.Group>
+          <Form.Label htmlFor="image">New profile picture</Form.Label>
+          <input type="file" name="image" id="image" onChange={handleUpload} />
         </Form.Group>
         <Button type="submit">Edit</Button>
       </Form>

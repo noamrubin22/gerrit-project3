@@ -140,9 +140,5 @@ const Profile = props => {
     </div>
   );
 };
-<<<<<<< HEAD
-export default Profile;
-=======
 
 export default Profile;
->>>>>>> development

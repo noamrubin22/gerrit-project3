@@ -78,6 +78,7 @@ const Profile = props => {
       .put(`/profile/${id}`, { quote, image })
       .then(response => {
         setUser(response.data);
+        setImage(image);
         setQuote(response.data.quote);
         setEditForm(false);
       })
@@ -86,10 +87,10 @@ const Profile = props => {
       });
   };
 
-  // let canUpdate = false;
-  // if (project.owner === props.user._id) {
-  //   canUpdate = true;
-  // }
+  let canUpdate = false;
+  if (user._id === props.user._id) {
+    canUpdate = true;
+  }
 
   console.log("USAR", user);
   return (
@@ -107,7 +108,11 @@ const Profile = props => {
       </h5>
       <h5>so far {messages} messages sent</h5>
       {user.quote && <h5>Quote: "{user.quote}"</h5>}
-      <Button onClick={toggleEditForm}>Edit profile</Button>
+      {canUpdate && (
+        <>
+          <Button onClick={toggleEditForm}>Edit profile</Button>
+        </>
+      )}
 
       {editForm && (
         <Form onSubmit={handleSubmit}>

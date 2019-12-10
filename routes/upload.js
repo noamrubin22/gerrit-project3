@@ -6,9 +6,9 @@ const uploader = require("../configs/cloudinary");
 
 router.post("/", uploader.single("image"), (req, res, next) => {
   console.log("file is: ", req.file);
-  const defaultUserImage =
-    "https://res.cloudinary.com/justgerrit/image/upload/v1575891083/profilepictures/gerrit_xiixvp.jpg";
-  image = req.file ? req.file.url : defaultUserImage;
+  // const defaultUserImage =
+  // "https://res.cloudinary.com/justgerrit/image/upload/v1575891083/profilepictures/gerrit_xiixvp.jpg";
+  // image = req.file ? req.file.url : defaultUserImage;
 
   if (!req.file) {
     next(new Error("No file uploaded!"));

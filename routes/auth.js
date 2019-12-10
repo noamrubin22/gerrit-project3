@@ -37,7 +37,7 @@ router.post("/signup", (req, res) => {
             username: username,
             password: hash,
             image:
-              "https://res.cloudinary.com/justgerrit/image/upload/v1575891083/profilepictures/gerrit_xiixvp.jpg"
+              "https://res.cloudinary.com/justgerrit/image/upload/v1575981209/profilepictures/gerrit.jpg"
           });
         })
         .then(newUser => {

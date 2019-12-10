@@ -22,6 +22,7 @@ const Signup = props => {
     signup(credentials.username, credentials.password).then(data => {
       if (data.message) {
         setError(data.message);
+        console.log("ERORR");
       } else {
         // lift the data up to the App state
         props.setUser(data);

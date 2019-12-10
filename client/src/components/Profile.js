@@ -96,9 +96,8 @@ const Profile = props => {
         gerriting since{" "}
         {date.slice(8, 10) + "-" + date.slice(5, 7) + "-" + date.slice(0, 4)}
       </h5>
-      <h5>has sent {messages} messages</h5>
+      <h5>so far.. {messages} messages sent</h5>
       {user.quote && <h5>Quote: "{user.quote}"</h5>}
-      {/* amount of messages send */}
       {/* <Button onClick={toggleEditForm}>Edit profile</Button> */}
       <Form onSubmit={handleSubmit}>
         <Form.Group>

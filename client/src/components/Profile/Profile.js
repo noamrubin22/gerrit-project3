@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Button, Form } from "react-bootstrap";
+import "./Profile.css";
 // const uploadCloud = require("../cloudinary");
 
 const Profile = props => {
@@ -8,10 +9,9 @@ const Profile = props => {
   const [editForm, setEditForm] = useState(false);
   const [quote, setQuote] = useState("");
   const [messages, setMessages] = useState(null);
-  const [image, setImage] = useState(
-    "https://res.cloudinary.com/justgerrit/image/upload/v1575981209/profilepictures/gerrit.jpg"
-  );
+  const [image, setImage] = useState("");
   const [error, setError] = useState("");
+  const [upload, setUpload] = useState(false);
   console.log("props mparams:", props.match.params);
 
   console.log("user props", props.user);
@@ -47,6 +47,9 @@ const Profile = props => {
   }, [editForm]);
 
   useEffect(() => {
+    console.log("upload changed");
+  }, [upload]);
+  useEffect(() => {
     console.log("mounted or updated");
   }, []);
 
@@ -67,6 +70,7 @@ const Profile = props => {
 
   const handleUpload = event => {
     console.log("The file to be uploaded is: ", event.target.files[0]);
+    setUpload(true);
 
     const uploadData = new FormData();
     uploadData.append("image", event.target.files[0]);
@@ -76,6 +80,7 @@ const Profile = props => {
         console.log(response.data);
         const image = response.data.secure_url;
         setImage(image);
+        setUpload(false);
       })
       .catch(err => {
         console.log(err);
@@ -138,7 +143,24 @@ const Profile = props => {
           <Button type="submit">Submit</Button>
         </Form>
       )}
-
+      {upload && (
+        <div className="loadingio-spinner-spinner-8gmk4npur0m">
+          <div className="ldio-utk0u7ye5gr">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      )}
       {editForm && (
         <Form onSubmit={handleSubmit}>
           <Form.Group>
@@ -150,7 +172,7 @@ const Profile = props => {
               onChange={handleUpload}
             />
           </Form.Group>
-          <Button type="submit">Submit</Button>
+          {!upload && <Button type="submit">Submit</Button>}
         </Form>
       )}
     </div>

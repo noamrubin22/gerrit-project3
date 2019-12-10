@@ -1,23 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Route, Redirect } from "react-router-dom";
 import "./App.css";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Navbar from "./components/Navbar";
 import Profile from "./components/Profile";
-import Chat from "./components/Chat"
+import Chat from "./components/Chat/Chat"
 import Landingpage from "./components/Landingpage/Landingpage"
+import { setLocation } from "./services/location";
 
 const App = props => {
   const [user, setUser] = useState(props.user);
   const [userChatroom, setUserChatroom] = useState("");
-  console.log(userChatroom)
+  const [userLocation, setUserLocation] = useState([]);
+
+  useEffect(() => {
+    setLocation()
+      .then(result => {
+        // setUserChatroom(result.userChatroom);
+        setUserLocation(result.userLocation);
+      })
+      .catch(err => console.log(err))
+
+    navigator.geolocation.watchPosition(() => setLocation()
+    .then(result => {
+      setUserChatroom(result.userChatroom);
+      setUserLocation(result.userLocation);
+    })
+    .catch(err => console.log(err)))
+  }, [])
+
   return (
     <div className="App">
       {/* <Navbar user={user} clearUser={setUser} /> */}
       <Route exact path="/" render={props => <Landingpage {...props} setUser={setUser} setUserChatroom={setUserChatroom} userChatroom={userChatroom}/>}
       />
-      <Route
+      {/* <Route
         exact
         path="/signup"
         // component={Signup}
@@ -27,7 +45,7 @@ const App = props => {
         exact
         path="/login"
         render={props => <Login {...props} setUser={setUser} setUserChatroom={setUserChatroom} userChatroom={userChatroom}/>}
-      />
+      /> */}
       <Route exact path="/chat/:room" render={props => {
         // only users can get into chat
         if (user) {

@@ -22,14 +22,8 @@ const Landingpage = props => {
     }
   }
 
-  useEffect(() => {
-    setLocation()
-      .then(result => {
-        console.log("setting the chatroom: ", result.data)
-        props.setUserChatroom(result.data);
-      })
-      .catch(err => console.log(err))
-  })
+  console.log("Landingpage: ", props.userChatroom)
+
 
   return(
     <div className="landing-page">
@@ -38,7 +32,7 @@ const Landingpage = props => {
       </div>
       <h1>Gerrit with Gerrits nearby!</h1>
       <div className="availability">
-        { props.userChatroom.length > 0 ?
+        { props.userChatroom && props.userChatroom.length > 0 ?
         <>
         <div>
           <img className="traffic-light" src={green} alt="green-light"/><img className="traffic-light grey-light" src={grey} alt="grey-light"/>

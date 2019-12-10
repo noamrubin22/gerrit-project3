@@ -74,7 +74,6 @@ h1 {
   font-size: 26px;
   text-align: center;
 }
-
 h2 {
   font-size: 18px;
 }
@@ -85,4 +84,11 @@ p {
 
 .orange-gradient {
   background-image: linear-gradient(to right, #EE4B75 , #FC625B);
+
+}
+
+.shadow {
+  -webkit-box-shadow: 0px 10px 24px -11px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 10px 24px -11px rgba(0,0,0,0.75);
+  box-shadow: 0px 10px 24px -11px rgba(0,0,0,0.75);
 }

@@ -14,7 +14,10 @@ export const setLocation = () => {
       return axios.post("/locate", (userLocation))
         .then((data) => {
           console.log("Client side answer received: ", data);
-          return data
+          return {
+            userChatroom: data.data,
+            userLocation: userLocation
+          }
         })
         .catch(err => console.log(err))
   });

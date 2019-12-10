@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import socketIOClient from "socket.io-client";
-import Message from "./Message";
+import Message from "../Message";
+import Navbar from "../Navbar";
+import hermannplatz from "../../images/hermannplatz_round.png"
  
 
 const endpoint = "http://localhost:5555"; // socket io connection
@@ -55,9 +57,15 @@ const Chat = props => {
 
 
   return (
-    <div style={{backgroundColor: "pink"}}>
-      <h1>Chatroom</h1>
-      <div>
+    <div>
+      <Navbar {...props}/>
+      <div className="chatroom-info">
+        <h1>You are currently live at:</h1>
+        <div className="chatroom-info-details">
+          <img src={hermannplatz} alt="hermannplatz"/>
+          <h2>{props.userChatroom}</h2>
+        </div>
+      </div>
       {messages
         .filter(message => message.chatroom === props.userChatroom)
         .map((message, index) => {
@@ -65,11 +73,12 @@ const Chat = props => {
           <Message user={props.user} userChatroom={props.userChatroom} message={message} key={index}/>
         )
       })}
-      </div>
+      <div>
       <form onSubmit={handleSubmit}>
         <input type="text" name="input" value={input} placeholder="Type something here.." onChange={handleInputChange}/>
         <button type="submit">Submit</button>
       </form>
+      </div>
     </div>
   );
 };

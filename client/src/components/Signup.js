@@ -66,7 +66,7 @@ const Signup = props => {
             />
           </div>
         {/* {error && <Alert variant="danger">{error}</Alert>} */}
-        <button className="main-cta orange-gradient" type="submit">SIGN UP</button>
+        <button className="main-cta orange-gradient shadow" type="submit">SIGN UP</button>
       </form>
     </div>
   );

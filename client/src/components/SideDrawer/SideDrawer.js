@@ -22,7 +22,7 @@ const sideDrawer = props => {
     <nav className={drawerClasses}>
       {props.user ? (
         <>
-          <Link to="/profile">Profile </Link>
+          <Link to={`/profile/${props.user._id}`}>Profile </Link>
           <Link to="/">Chat </Link>
           <Link to="/">Map </Link>
           <Link to="/" onClick={handleLogout}>

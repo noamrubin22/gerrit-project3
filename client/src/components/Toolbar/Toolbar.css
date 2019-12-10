@@ -10,10 +10,12 @@
   top: 0;
   left: 0;
   width: 100%;
-  background: #DCD080;
-  height: 56px;
+  background: white;
+  height: 60px;
+  -webkit-box-shadow: -4px -3px 14px 3px rgba(168,168,168,1);
+-moz-box-shadow: -4px -3px 14px 3px rgba(168,168,168,1);
+box-shadow: -4px -3px 14px 3px rgba(168,168,168,1);
 }
-
 .toolbar__navigation {
   display: flex;
   flex-direction: row;
@@ -25,8 +27,8 @@
 
 .toolbar__logo {
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 5%;
+
 }
 
 .toolbar__logo a {

@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 const Message = props => {
-  
-  console.log(props.user);
-  console.log(props.message);
   let {username, content, created_at, userId} = props.message;
   created_at = created_at.slice(11,16);
 
@@ -21,12 +18,13 @@ const Message = props => {
     width: "80vw"
   }
 
-  
   return(
     <div style={props.user._id === userId ? ownStyle : generalStyle}>
       <p>Username: {username}</p>
       <p>Message: {content}</p>
       <p>Time: {created_at}</p>
+      <p>Messageg Chatroom: {props.message.chatroom}</p>
+      <p>User Chatroom: {props.userChatroom}</p>
     </div>
   )
 }

@@ -6,28 +6,32 @@ import Signup from "./components/Signup";
 import Navbar from "./components/Navbar";
 import Profile from "./components/Profile";
 import Chat from "./components/Chat"
+import Landingpage from "./components/Landingpage/Landingpage"
 
 const App = props => {
   const [user, setUser] = useState(props.user);
-
+  const [userChatroom, setUserChatroom] = useState("");
+  console.log(userChatroom)
   return (
     <div className="App">
-      <Navbar user={user} clearUser={setUser} />
+      {/* <Navbar user={user} clearUser={setUser} /> */}
+      <Route exact path="/" render={props => <Landingpage {...props} setUser={setUser} setUserChatroom={setUserChatroom} userChatroom={userChatroom}/>}
+      />
       <Route
         exact
         path="/signup"
         // component={Signup}
-        render={props => <Signup {...props} setUser={setUser} />}
+        render={props => <Signup {...props} setUser={setUser} setUserChatroom={setUserChatroom} userChatroom={userChatroom}/>}
       />
       <Route
         exact
         path="/login"
-        render={props => <Login {...props} setUser={setUser} />}
+        render={props => <Login {...props} setUser={setUser} setUserChatroom={setUserChatroom} userChatroom={userChatroom}/>}
       />
-      <Route exact path="/chat" render={props => {
+      <Route exact path="/chat/:room" render={props => {
         // only users can get into chat
         if (user) {
-          return <Chat {...props} user={user} />;
+  return <Chat {...props} user={user} userChatroom={userChatroom} setUserChatroom={setUserChatroom}/>;
         } else {
           return <Redirect to="/" />
         }

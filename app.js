@@ -84,16 +84,6 @@ app.use(passport.session());
 
 // default value for title local
 app.locals.title = 'Gerrit - Project3 ';
-
-// // Enable authentication using session + passport
-// app.use(session({
-//   secret: 'irongenerator',
-//   resave: true,
-//   saveUninitialized: true,
-//   store: new MongoStore( { mongooseConnection: mongoose.connection })
-// }))
-// app.use(flash());
-// require('./passport')(app);
     
 // routes 
 const index = require('./routes/index');
@@ -104,6 +94,9 @@ app.use('/auth', authRoutes);
 
 const chatRoutes = require('./routes/chat');
 app.use('/chat', chatRoutes);
+
+const locateRoutes = require('./routes/locate');
+app.use('/locate', locateRoutes);
 
 const profileRoutes = require('./routes/profile');
 app.use('/profile', profileRoutes);

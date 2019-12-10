@@ -2,65 +2,67 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import socketIOClient from "socket.io-client";
 import Message from "./Message";
+ 
 
 const endpoint = "http://localhost:5555"; // socket io connection
 const socket = socketIOClient(endpoint);
 
 const Chat = props => {
   const [input, setInput] = useState("");
-  const [user, setUser] = useState("");
-  const [display, setDisplay] = useState([]);
+  const [messages, setMessages] = useState([]);
 
   const handleInputChange = event => {
     setInput(event.target.value);
-    /////SOCKET
   }
   
   //when the component is mounted, it starts listening for events of the type "message"
-  //if such an event is noticed, the state "display" is changegd, so that the messageg is displayed above the input form
+  //if such an event is noticed, the state "messages" is changed, so that the messageg is messagesed above the input form
   useEffect(() => {
-    setUser(props.user);
-
-    axios.get("/chat")
-        .then(messages => {
-          console.log(messages.data);
-          setDisplay(messages.data);
-        })
-        .catch(err => console.log(err));
+    console.log(props.userChatroom);
+    axios.get(`/chat/${props.userChatroom}`)
+      .then(messages => {
+        console.log(messages);
+        setMessages(messages.data);
+      })
+      .catch(err => console.log(err));
 
     socket.on("message", foo => {
-      
-      axios.get("/chat")
+      axios.get(`/chat/${props.userChatroom}`)
         .then(messages => {
-          console.log(messages.data);
-          setDisplay(messages.data);
+          console.log(messages);
+          setMessages(messages.data);
         })
         .catch(err => console.log(err));
 
     });
+
+    const checkLocation = setInterval( () => {
+      
+    })
   }, []);
   
   const handleSubmit = event => {
+    console.log(props.userChatroom)
     event.preventDefault();
-    
-    //when the form is submitted a message is emitted
-    
-    // console.log(req.user);
-    // console.log(event);
-    axios.post("/chat", ({message:input, user:user}))
-      .then(() => socket.emit("message", input))
+    axios.post("/chat", ({message:input, user:props.user, chatroom: props.userChatroom}))
+      .then(() => {
+        socket.emit("message", input)
+      })
       .catch(err => console.log(err))
     // clean form after message is sent
     setInput("")
   }
 
+
   return (
     <div style={{backgroundColor: "pink"}}>
       <h1>Chatroom</h1>
       <div>
-      {display.map((message, index) => {
+      {messages
+        .filter(message => message.chatroom === props.userChatroom)
+        .map((message, index) => {
         return(
-          <Message user={user} message={message} key={index}/>
+          <Message user={props.user} userChatroom={props.userChatroom} message={message} key={index}/>
         )
       })}
       </div>

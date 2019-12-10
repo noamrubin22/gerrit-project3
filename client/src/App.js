@@ -9,6 +9,7 @@ import Profile from "./components/Profile";
 import Chat from "./components/Chat/Chat";
 import Landingpage from "./components/Landingpage/Landingpage";
 import { setLocation } from "./services/location";
+import Map from "./components/Map";
 
 const App = props => {
   const [user, setUser] = useState(props.user);

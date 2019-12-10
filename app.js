@@ -97,7 +97,5 @@ app.use("/upload", uploadRoutes);
 const locateRoutes = require("./routes/locate");
 app.use("/locate", locateRoutes);
 
-const profileRoutes = require("./routes/profile");
-app.use("/profile", profileRoutes);
 
 module.exports = app;

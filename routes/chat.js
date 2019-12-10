@@ -7,12 +7,14 @@ const User = require("../models/User");
 // const socket = socketIOClient(endpoint);
 
 /* GET home page */
-router.get("/", (req, res) => {
-  Message.find()
+router.get("/:chatroom", (req, res) => {
+  console.log("URL parameter: ", req.params);
+  Message.find( { chatroom: req.params.chatroom} )
     .populate("posted_by")
     .then(response => {
+      console.log(response)
       let data = response.map(message => {
-        let {_id, content, created_at} = message;
+        let {_id, content, created_at, chatroom} = message;
         let {username, geolocation} = message.posted_by;
         let userId = message.posted_by._id;
             return {
@@ -21,7 +23,8 @@ router.get("/", (req, res) => {
               created_at: created_at,
               username: username,
               userId: userId,
-              geolocation: geolocation
+              geolocation: geolocation,
+              chatroom: chatroom
             }
       })
       res.json(data);
@@ -33,11 +36,11 @@ router.get("/", (req, res) => {
 
 /* pushes new message in the database */
 router.post("/", (req, res) => {
-  console.log("messagge posted:", req.body);
   if (req.body.user) {
     Message.create({
       content: req.body.message,
-      posted_by: req.user._id
+      posted_by: req.user._id,
+      chatroom: req.body.chatroom
     })
   }
    

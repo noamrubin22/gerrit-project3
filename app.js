@@ -73,29 +73,8 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// not necessary
-// hbs.registerHelper('ifUndefined', (value, options) => {
-//   if (arguments.length < 2)
-//       throw new Error("Handlebars Helper ifUndefined needs 1 parameter");
-//   if (typeof value !== undefined ) {
-//       return options.inverse(this);
-//   } else {
-//       return options.fn(this);
-//   }
-// });
-
 // default value for title local
 app.locals.title = "Gerrit - Project3 ";
-
-// // Enable authentication using session + passport
-// app.use(session({
-//   secret: 'irongenerator',
-//   resave: true,
-//   saveUninitialized: true,
-//   store: new MongoStore( { mongooseConnection: mongoose.connection })
-// }))
-// app.use(flash());
-// require('./passport')(app);
 
 mongoose.set("useFindAndModify", false);
 
@@ -114,5 +93,11 @@ app.use("/profile", profileRoutes);
 
 const uploadRoutes = require("./routes/upload");
 app.use("/upload", uploadRoutes);
+
+const locateRoutes = require("./routes/locate");
+app.use("/locate", locateRoutes);
+
+const profileRoutes = require("./routes/profile");
+app.use("/profile", profileRoutes);
 
 module.exports = app;

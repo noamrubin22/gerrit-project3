@@ -45,6 +45,7 @@ const Signup = props => {
           <div className="input-container">
             <label htmlFor="username">Username: </label>
             <input
+              className="input-field"
               type="text"
               name="username"
               id="username"
@@ -55,6 +56,7 @@ const Signup = props => {
           <div className="input-container">
             <label htmlFor="password">Password: </label>
             <input
+              className="input-field"
               type="password"
               name="password"
               id="password"

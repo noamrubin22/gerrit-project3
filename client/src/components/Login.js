@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { login } from "../services/auth";
-import { Alert, Form, Button } from "react-bootstrap";
+import { Alert } from "react-bootstrap";
+import {setLocation} from "../services/location";
 
 const Login = props => {
   const [credentials, setCredentials] = useState({
@@ -19,46 +20,54 @@ const Login = props => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    login(credentials.username, credentials.password).then(data => {
+    console.log("Login clicked")
+    login(credentials.username, credentials.password)
+    .then(data => {
+      console.log(data);
       if (data.message) {
         setError(data.message);
-        console.log(data.message);
-      } else {
+        console.log("user: ", data.message);
+      } 
+      else {
         // lift the data up to the App state
+        console.log("setting the user: ", data);
         props.setUser(data);
-        //redirect
-        props.history.push("/chat")
-      }
-    });
-  };
-
+        
+        if (!props.userChatroom) {
+          props.history.push("/map");
+        }
+        else {
+          props.history.push(`/chat/${props.userChatroom}`);
+        }
+  
+    }
+  })}
   return (
     <div>
-      <h2>Login</h2>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group>
-          <Form.Label htmlFor="username">Username: </Form.Label>
-          <Form.Control
+      <form className="form-submission" onSubmit={handleSubmit}>
+          <div className="input-container">
+          <label htmlFor="username">Username: </label>
+          <input
             type="text"
             name="username"
             id="username"
             value={props.username}
             onChange={handleChange}
           />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label htmlFor="password">Password: </Form.Label>
-          <Form.Control
+          </div>
+          <div className="input-container">
+          <label htmlFor="password">Password: </label>
+          <input 
             type="password"
             name="password"
             id="password"
             value={props.password}
             onChange={handleChange}
           />
-        </Form.Group>
-        {error && <Alert variant="danger">{error}</Alert>}
-        <Button type="submit">Log in</Button>
-      </Form>
+          </div>
+        {/* {error && <Alert variant="danger">{error}</Alert>} */}
+        <button className="main-cta orange-gradient shadow" type="submit">LOG IN</button>
+      </form>
     </div>
   );
 };

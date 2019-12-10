@@ -3,6 +3,7 @@ const Schema   = mongoose.Schema;
 
 const messageSchema = new Schema({
   content: String,
+  chatroom: String,
   posted_by: {
     type: Schema.Types.ObjectId,
     ref: "User"

@@ -75,33 +75,10 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// not necessary
-// hbs.registerHelper('ifUndefined', (value, options) => {
-//   if (arguments.length < 2)
-//       throw new Error("Handlebars Helper ifUndefined needs 1 parameter");
-//   if (typeof value !== undefined ) {
-//       return options.inverse(this);
-//   } else {
-//       return options.fn(this);
-//   }
-// });
-
 // default value for title local
 app.locals.title = "Gerrit - Project3 ";
 
-// // Enable authentication using session + passport
-// app.use(session({
-//   secret: 'irongenerator',
-//   resave: true,
-//   saveUninitialized: true,
-//   store: new MongoStore( { mongooseConnection: mongoose.connection })
-// }))
-// app.use(flash());
-// require('./passport')(app);
-
-// routes
-const index = require("./routes/index");
-app.use("/", index);
+mongoose.set("useFindAndModify", false);
 
 const authRoutes = require("./routes/auth");
 app.use("/auth", authRoutes);
@@ -111,6 +88,12 @@ app.use("/chat", chatRoutes);
 
 const profileRoutes = require("./routes/profile");
 app.use("/profile", profileRoutes);
+
+const uploadRoutes = require("./routes/upload");
+app.use("/upload", uploadRoutes);
+
+const locateRoutes = require("./routes/locate");
+app.use("/locate", locateRoutes);
 
 app.use((req, res) => {
   // If no routes match, send them the React HTML.

@@ -8,7 +8,9 @@ const Profile = props => {
   const [editForm, setEditForm] = useState(false);
   const [quote, setQuote] = useState("");
   const [messages, setMessages] = useState(null);
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(
+    "https://res.cloudinary.com/justgerrit/image/upload/v1575981209/profilepictures/gerrit.jpg"
+  );
   const [error, setError] = useState("");
   console.log("props mparams:", props.match.params);
 
@@ -33,8 +35,16 @@ const Profile = props => {
   }, []);
 
   useEffect(() => {
-    console.log("Changed");
-  }, [quote, image, editForm]);
+    console.log("imageChanged");
+  }, [image]);
+
+  useEffect(() => {
+    console.log("quote Changed");
+  }, [quote]);
+
+  useEffect(() => {
+    console.log("editform Changed");
+  }, [editForm]);
 
   useEffect(() => {
     console.log("mounted or updated");
@@ -125,6 +135,12 @@ const Profile = props => {
               onChange={handleChange}
             />
           </Form.Group>
+          <Button type="submit">Submit</Button>
+        </Form>
+      )}
+
+      {editForm && (
+        <Form onSubmit={handleSubmit}>
           <Form.Group>
             <Form.Label htmlFor="image">Edit profile picture</Form.Label>
             <input

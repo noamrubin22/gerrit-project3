@@ -14,58 +14,63 @@ const Chat = props => {
   const handleInputChange = event => {
     setInput(event.target.value);
     /////SOCKET
-  }
-  
+  };
+
   //when the component is mounted, it starts listening for events of the type "message"
   //if such an event is noticed, the state "display" is changegd, so that the messageg is displayed above the input form
   useEffect(() => {
     setUser(props.user);
 
-    axios.get("/chat")
-        .then(messages => {
-          console.log(messages.data);
-          setDisplay(messages.data);
-        })
-        .catch(err => console.log(err));
+    axios
+      .get("/chat")
+      .then(messages => {
+        console.log(messages.data);
+        setDisplay(messages.data);
+      })
+      .catch(err => console.log(err));
 
     socket.on("message", foo => {
-      
-      axios.get("/chat")
+      axios
+        .get("/chat")
         .then(messages => {
           console.log(messages.data);
           setDisplay(messages.data);
         })
         .catch(err => console.log(err));
-
     });
   }, []);
-  
+
   const handleSubmit = event => {
     event.preventDefault();
-    
+
     //when the form is submitted a message is emitted
-    
+
     // console.log(req.user);
     // console.log(event);
-    axios.post("/chat", ({message:input, user:user}))
+    axios
+      .post("/chat", { message: input, user: user })
       .then(() => socket.emit("message", input))
-      .catch(err => console.log(err))
+      .catch(err => console.log(err));
     // clean form after message is sent
-    setInput("")
-  }
+    setInput("");
+  };
 
   return (
-    <div style={{backgroundColor: "pink"}}>
+    <div style={{ backgroundColor: "pink" }}>
       <h1>Chatroom</h1>
       <div>
-      {display.map((message, index) => {
-        return(
-          <Message user={user} message={message} key={index}/>
-        )
-      })}
+        {display.map((message, index) => {
+          return <Message user={user} message={message} key={index} />;
+        })}
       </div>
       <form onSubmit={handleSubmit}>
-        <input type="text" name="input" value={input} placeholder="Type something here.." onChange={handleInputChange}/>
+        <input
+          type="text"
+          name="input"
+          value={input}
+          placeholder="Type something here.."
+          onChange={handleInputChange}
+        />
         <button type="submit">Submit</button>
       </form>
     </div>

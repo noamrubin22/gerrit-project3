@@ -10,6 +10,7 @@ export const setLocation = () => {
   return getPosition().then(positionData => {
     let {latitude, longitude} = positionData.coords
       let userLocation = [latitude, longitude];
+      console.log(userLocation);
       // user.geolocation = userLocation;
       return axios.post("/locate", (userLocation))
         .then((data) => {

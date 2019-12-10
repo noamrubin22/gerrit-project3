@@ -32,19 +32,7 @@ const Login = props => {
         // lift the data up to the App state
         console.log("setting the user: ", data);
         props.setUser(data);
-        //get location and geobucket of user and add it as a state in App
-        // setLocation()
-        //   .then(result => {
-        //     console.log("setting the chatroom: ", result.data)
-        //     props.setUserChatroom(result.data);
-        //     if (result.data.length === 0) {
-        //       props.history.push("/");
-        //     }
-        //     else {
-        //       props.history.push(`/chat/${result.data}`);
-        //     }
-        //   })
-        //   .catch(err => console.log(err))
+        
         if (!props.userChatroom) {
           props.history.push("/map");
         }

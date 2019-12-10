@@ -43,7 +43,7 @@ const App = props => {
       />
       <Route
         exact
-        path="/profile"
+        path="/profile/:id"
         render={props => {
           // only users can get into chat
           if (user) {

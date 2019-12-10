@@ -9,29 +9,32 @@ const Profile = props => {
   const [quote, setQuote] = useState("");
   const [messages, setMessages] = useState(null);
   const [image, setImage] = useState("");
+  const [error, setError] = useState("");
+  console.log("props mparams:", props.match.params);
 
   console.log("user props", props.user);
-  const date = props.user.created_at;
-
+  // const date = props.user.created_at;
+  const { id } = props.match.params;
   // first mount
   useEffect(() => {
     console.log("did mount");
     axios
-      .get("/profile")
+      .get(`/profile/${id}`)
       .then(response => {
+        setUser(response.data.user);
         setMessages(response.data.messages);
       })
       .catch(err => {
         if (err.response.status === 404) {
           console.log(err);
-          // setError(err.response.data.message);
+          setError(err.response.data.message);
         }
       });
   }, []);
 
   useEffect(() => {
-    console.log("Quote is being changed");
-  }, [quote, image]);
+    console.log("Changed");
+  }, [quote, image, editForm]);
 
   useEffect(() => {
     console.log("mounted or updated");
@@ -43,8 +46,8 @@ const Profile = props => {
   //   };
   // }, []);
 
+  // edit form should pops up when button is clicked
   const toggleEditForm = () => {
-    // edit form when button is clicked
     setEditForm(!editForm);
   };
 
@@ -56,8 +59,6 @@ const Profile = props => {
     console.log("The file to be uploaded is: ", event.target.files[0]);
 
     const uploadData = new FormData();
-    // imageUrl => this name has to be the same as in the model since we pass
-    // req.body to .create() method when creating a new thing in '/api/things/create' POST route
     uploadData.append("image", event.target.files[0]);
     axios
       .post("/upload", uploadData)
@@ -74,49 +75,65 @@ const Profile = props => {
   const handleSubmit = event => {
     event.preventDefault();
     axios
-      .put("/profile", { quote, image })
+      .put(`/profile/${id}`, { quote, image })
       .then(response => {
         setUser(response.data);
         setQuote(response.data.quote);
-
-        // setMessages(response.data.messsages);
-        // console.log("resssssssssssss", response.data);
+        setEditForm(false);
       })
       .catch(err => {
         console.log(err);
       });
   };
+
+  // let canUpdate = false;
+  // if (project.owner === props.user._id) {
+  //   canUpdate = true;
+  // }
+
   console.log("USAR", user);
   return (
     <div>
       <h1>Profile</h1>
       <img src={user.image} height="150px" />
-      <h2>{props.user.username}</h2>
+      <h2>{user.username}</h2>
       <h5>
         gerriting since{" "}
-        {date.slice(8, 10) + "-" + date.slice(5, 7) + "-" + date.slice(0, 4)}
+        {user.created_at.slice(8, 10) +
+          "-" +
+          user.created_at.slice(5, 7) +
+          "-" +
+          user.created_at.slice(0, 4)}
       </h5>
-      <h5>so far.. {messages} messages sent</h5>
+      <h5>so far {messages} messages sent</h5>
       {user.quote && <h5>Quote: "{user.quote}"</h5>}
-      {/* <Button onClick={toggleEditForm}>Edit profile</Button> */}
-      <Form onSubmit={handleSubmit}>
-        <Form.Group>
-          <Form.Label htmlFor="quote">Quote: </Form.Label>
-          <Form.Control
-            type="text"
-            name="description"
-            value={quote}
-            onChange={handleChange}
-          />
-          {/* upload new image button */}
-        </Form.Group>
-        <Form.Group>
-          <Form.Label htmlFor="image">New profile picture</Form.Label>
-          <input type="file" name="image" id="image" onChange={handleUpload} />
-        </Form.Group>
-        <Button type="submit">Edit</Button>
-      </Form>
+      <Button onClick={toggleEditForm}>Edit profile</Button>
+
+      {editForm && (
+        <Form onSubmit={handleSubmit}>
+          <Form.Group>
+            <Form.Label htmlFor="quote">Quote </Form.Label>
+            <Form.Control
+              type="text"
+              name="description"
+              value={quote}
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label htmlFor="image">Edit profile picture</Form.Label>
+            <input
+              type="file"
+              name="image"
+              id="image"
+              onChange={handleUpload}
+            />
+          </Form.Group>
+          <Button type="submit">Submit</Button>
+        </Form>
+      )}
     </div>
   );
 };
+
 export default Profile;

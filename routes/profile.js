@@ -5,19 +5,17 @@ const Message = require("../models/Message");
 const uploader = require("../configs/cloudinary");
 
 // show user profile
-router.get("/", (req, res) => {
+router.get("/:id", (req, res) => {
   console.log("get route profile");
-  // const profileId = req.user._id
-  // res.json(res);
-  User.findById(req.user._id)
+
+  const userId = req.params.id;
+
+  User.findById(userId)
     .then(response => {
       console.log(response);
-      // res.json(response);
-      Message.find({ posted_by: req.user._id })
+      Message.find({ posted_by: userId })
         .then(messages => {
-          console.log("hello ");
-          console.log(messages.length);
-          res.json({ messages: messages.length });
+          res.json({ messages: messages.length, user: response });
         })
         .catch(err => {
           console.log(err);
@@ -29,12 +27,8 @@ router.get("/", (req, res) => {
 });
 
 // edit user profile
-router.put("/", uploader.single("image"), (req, res) => {
+router.put("/:id", uploader.single("image"), (req, res) => {
   console.log("put route profile");
-  console.log("useeeer", req.body);
-  // const defaultUserImage =
-  //   "https://res.cloudinary.com/justgerrit/image/upload/v1575891083/profilepictures/gerrit_xiixvp.jpg";
-  // let image = req.file ? req.file.url : defaultUserImage;
 
   User.findByIdAndUpdate(
     req.user._id,
@@ -45,7 +39,6 @@ router.put("/", uploader.single("image"), (req, res) => {
     { new: true }
   )
     .then(user => {
-      // console.log(user);
       res.json(user);
     })
     .catch(err => {

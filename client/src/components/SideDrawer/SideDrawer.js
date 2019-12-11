@@ -23,7 +23,7 @@ const sideDrawer = props => {
       {props.user ? (
         <>
           <Link to={`/profile/${props.user._id}`}>Profile </Link>
-          <Link to="/chat">Chat </Link>
+          <Link to={`/chat/${props.userChatroom}`}>Chat </Link>
           <Link to="/map">Map </Link>
           <Link to="/" onClick={handleLogout}>
             Logout

@@ -27,6 +27,7 @@ const Navbar = props => {
         show={sideDrawerOpen}
         user={props.user}
         clearUser={props.clearUser}
+        userChatroom={props.userChatroom}
       />
       {backdrop}
       <main style={{ marginTop: "64px" }}></main>

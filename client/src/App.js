@@ -51,7 +51,12 @@ const App = props => {
           )}
         />
         <>
-          <Navbar {...props} />
+          <Navbar
+            {...props}
+            user={user}
+            setUser={setUser}
+            userChatroom={userChatroom}
+          />
           <Route exact path="/map" component={Map} />
           <Route
             exact

@@ -44,7 +44,7 @@ const App = props => {
           path="/"
           render={props => (
             <Landingpage
-              // {...props}
+              {...props}
               setUser={setUser}
               setUserChatroom={setUserChatroom}
               userChatroom={userChatroom}

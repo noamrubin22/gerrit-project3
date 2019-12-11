@@ -20,7 +20,7 @@ const App = props => {
     setLocation()
       .then(result => {
         // setUserChatroom(result.userChatroom);
-        console.log("setting location")
+        console.log("setting location");
         setUserLocation(result.userLocation);
       })
       .catch(err => console.log(err));
@@ -37,7 +37,6 @@ const App = props => {
 
   return (
     <div className="App">
-      {/* <Navbar user={user} clearUser={setUser} /> */}
       <Switch>
         <Route
           exact
@@ -52,54 +51,52 @@ const App = props => {
           )}
         />
         <>
-        <Navbar />
-        <Route exact path="/map">
-          <Map />
-        </Route>
-        <Route
-          exact
-          path="/chat"
-          render={props => {
-            // only users can get into chat
-            if (user) {
-              return <Chat {...props} user={user} />;
-            } else {
-              return <Redirect to="/" />;
-            }
-          }}
-        />
-        <Route
-          exact
-          path="/profile/:id"
-          render={props => {
-            // only users can get into chat
-            if (user) {
-              return <Profile {...props} user={user} />;
-            } else {
-              return <Redirect to="/" />;
-            }
-          }}
-        />
+          <Navbar {...props} />
+          <Route exact path="/map" component={Map} />
+          <Route
+            exact
+            path="/chat"
+            render={props => {
+              // only users can get into chat
+              if (user) {
+                return <Chat {...props} user={user} />;
+              } else {
+                return <Redirect to="/" />;
+              }
+            }}
+          />
+          <Route
+            exact
+            path="/profile/:id"
+            render={props => {
+              // only users can get into chat
+              if (user) {
+                return <Profile {...props} user={user} setUser={setUser} />;
+              } else {
+                return <Redirect to="/" />;
+              }
+            }}
+          />
 
-        <Route
-          exact
-          path="/chat/:room"
-          render={props => {
-            // only users can get into chat
-            if (user) {
-              return (
-                <Chat
-                  {...props}
-                  user={user}
-                  userChatroom={userChatroom}
-                  setUserChatroom={setUserChatroom}
-                />
-              );
-            } else {
-              return <Redirect to="/" />;
-            }
-          }}
-        />
+          <Route
+            exact
+            path="/chat/:room"
+            render={props => {
+              // only users can get into chat
+              if (user) {
+                return (
+                  <Chat
+                    {...props}
+                    user={user}
+                    userChatroom={userChatroom}
+                    setUserChatroom={setUserChatroom}
+                  />
+                );
+              } else {
+                return <Redirect to="/" />;
+              }
+            }}
+          />
         </>
       </Switch>
     </div>

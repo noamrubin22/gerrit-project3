@@ -17,7 +17,7 @@ const sideDrawer = props => {
   if (props.show) {
     drawerClasses = "side-drawer open";
   }
-
+  console.log("PROPS DRAWER", props);
   return (
     <nav className={drawerClasses}>
       {props.user ? (
@@ -31,8 +31,7 @@ const sideDrawer = props => {
         </>
       ) : (
         <React.Fragment>
-          <Link to="/signup">Signup </Link>
-          <Link to="/login">Login </Link>
+          <Link to="/">Register</Link>
         </React.Fragment>
       )}
     </nav>

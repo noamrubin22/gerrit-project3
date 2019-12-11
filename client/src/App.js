@@ -19,20 +19,21 @@ const App = props => {
   useEffect(() => {
     setLocation()
       .then(result => {
-        // setUserChatroom(result.userChatroom);
+        setUserChatroom(result.userChatroom);
         console.log("setting location: ", result)
         setUserLocation(result.userLocation);
+        console.log("rerender after setting location");
+        navigator.geolocation.watchPosition(() =>
+          setLocation()
+            .then(result => {
+              setUserChatroom(result.userChatroom);
+              setUserLocation(result.userLocation);
+            })
+            .catch(err => console.log(err))
+        );
       })
       .catch(err => console.log(err));
 
-    navigator.geolocation.watchPosition(() =>
-      setLocation()
-        .then(result => {
-          setUserChatroom(result.userChatroom);
-          setUserLocation(result.userLocation);
-        })
-        .catch(err => console.log(err))
-    );
   }, []);
 
   return (
@@ -44,7 +45,7 @@ const App = props => {
           path="/"
           render={props => (
             <Landingpage
-              {...props}
+              // {...props}
               setUser={setUser}
               setUserChatroom={setUserChatroom}
               userChatroom={userChatroom}

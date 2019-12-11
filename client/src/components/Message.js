@@ -5,28 +5,42 @@ const Message = props => {
   created_at = created_at.slice(11,16);
 
   const generalStyle = {
-    border: "1px solid black",
     backgroundColor: "white",
     margin: "10px 0 10px 0",
     width: "80vw"
   }
 
   const ownStyle = {
-    border: "1px solid black",
     backgroundColor: "yellow",
-     margin: "10px 0 10px 0",
-    width: "80vw"
+    margin: "10px 0 10px 0",
+    width: "80vw",
+    alignSelf: "flex-end"
   }
-
+  
+  
   return(
-    <div style={props.user._id === userId ? ownStyle : generalStyle}>
-      <p>Username: {username}</p>
-      <p>Message: {content}</p>
-      <p>Time: {created_at}</p>
-      <p>Messageg Chatroom: {props.message.chatroom}</p>
-      <p>User Chatroom: {props.userChatroom}</p>
+    <>
+    {props.user._id === userId ? 
+      <div className="own-message">
+      <div className="own-message-body">
+        <p className="username">{username}</p>
+        <p className="message-content">{content}</p>
+        <p className="message-timestamp">{created_at}</p>
+      </div>
+      <div className="arrow-right"></div>
     </div>
+    : 
+    <div className="other-message">
+      <div className="arrow-left"></div>
+      <div className="other-message-body">
+        <p className="username">{username}</p>
+        <p className="message-content">{content}</p>
+        <p className="message-timestamp">{created_at}</p>
+      </div>
+    </div>}
+    </>
   )
 }
 
 export default Message;
+

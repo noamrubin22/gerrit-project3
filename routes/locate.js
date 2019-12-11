@@ -6,12 +6,11 @@ const Chatroom = require("../models/Chatroom");
 
 router.post("/", (req, res) => {
   
-  console.log(req.body);
   let latitude = req.body[0];
   let longitude = req.body[1];
 
   let allGeobuckets = [];
-  console.log("start looking for geobuckets");
+
   //get all chatrooms from database
   Chatroom.find()
     .then(result => {
@@ -25,7 +24,6 @@ router.post("/", (req, res) => {
       ))
       
       if (currentBucket[0]) {
-        console.log("the current user is in the following bucket: ", currentBucket[0].namespace);
   
         res.json(currentBucket[0].namespace);
       }

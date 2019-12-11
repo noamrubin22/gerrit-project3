@@ -109,11 +109,23 @@ const Profile = props => {
   }
 
   console.log("USAR", user);
+
+  const imageStyle = {
+      width: "80px",
+      height: "80px",
+      backgroundImage: `url(${user.image})`,
+      backgroundSize: "cover",
+      borderRadius: "50%"
+    }
+  
+  
+
   return (
     <div className="profile-page" id="section1">
       <div className="profile">
         <h1>Profile</h1>
-        <img className="profile-picture" src={user.image} />
+        <div style={imageStyle}>
+        </div>
         <h2>{user.username}</h2>
         <p>
           Connected since{" "}

@@ -8,8 +8,7 @@
 }
 
 .profile-picture {
-  height: 200px;
-  border-radius: 50%;
+  
 }
 .profile {
   display: flex;
@@ -42,6 +41,7 @@ a {
   display: flex;
   justify-content: space-between;
 }
+
 /* spinner */
 @keyframes ldio-utk0u7ye5gr {
   0% {

@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "194d1ddf8f18c1b32f8dfbd9286e5e29",
+    "revision": "2a01026bb3dbcd016864fdf2846a2bf8",
     "url": "/index.html"
   },
   {
-    "revision": "596a94b9cfba2c83797f",
+    "revision": "08ca776a61022e09cfb1",
     "url": "/static/css/2.7efaf445.chunk.css"
   },
   {
-    "revision": "9f2040fceeb931d391d1",
-    "url": "/static/css/main.b83583c0.chunk.css"
+    "revision": "557bd6273b3bd569952f",
+    "url": "/static/css/main.9a380089.chunk.css"
   },
   {
-    "revision": "596a94b9cfba2c83797f",
-    "url": "/static/js/2.7caa93f1.chunk.js"
+    "revision": "08ca776a61022e09cfb1",
+    "url": "/static/js/2.dce9a12c.chunk.js"
   },
   {
-    "revision": "9f2040fceeb931d391d1",
-    "url": "/static/js/main.69a1465e.chunk.js"
+    "revision": "557bd6273b3bd569952f",
+    "url": "/static/js/main.43f45b05.chunk.js"
   },
   {
     "revision": "1337678ae3301a2c8a7b",
@@ -30,10 +30,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "188eef9cce6368e2f3fd19b6528a7575",
     "url": "/static/media/grey.188eef9c.png"
-  },
-  {
-    "revision": "fcb95cb19496356eaaf482fc9b825670",
-    "url": "/static/media/hermannplatz_round.fcb95cb1.png"
   },
   {
     "revision": "ca7de6b95f69d9ea6f06c33e23e930ee",

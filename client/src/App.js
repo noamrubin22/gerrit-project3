@@ -49,19 +49,6 @@ const App = props => {
           />
         )}
       />
-      {/* <Route
-        exact
-        path="/signup"
-        // component={Signup}
-        render={props => <Signup {...props} setUser={setUser} setUserChatroom={setUserChatroom} userChatroom={userChatroom}/>}
-      />
-      <Route
-        exact
-        path="/login"
-        render={props => <Login {...props} setUser={setUser} />}
-      />
-      */}
-
       <Route exact path="/map">
         <Map />
       </Route>

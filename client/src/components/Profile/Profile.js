@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Button, Form } from "react-bootstrap";
+import { Link } from "react-router-dom";
+// import { Button, Form } from "react-bootstrap";
 import "./Profile.css";
 // const uploadCloud = require("../cloudinary");
 
@@ -12,11 +13,13 @@ const Profile = props => {
   const [image, setImage] = useState("");
   const [error, setError] = useState("");
   const [upload, setUpload] = useState(false);
-  console.log("props mparams:", props.match.params);
+  const [uploaded, setUploaded] = useState(false);
+  const [submitButton, setSubmitButton] = useState(false);
+  console.log("props params:", props.match.params);
 
   console.log("user props", props.user);
-  // const date = props.user.created_at;
   const { id } = props.match.params;
+
   // first mount
   useEffect(() => {
     console.log("did mount");
@@ -24,6 +27,7 @@ const Profile = props => {
       .get(`/profile/${id}`)
       .then(response => {
         setUser(response.data.user);
+        setImage(response.data.user.image);
         setMessages(response.data.messages);
       })
       .catch(err => {
@@ -49,15 +53,10 @@ const Profile = props => {
   useEffect(() => {
     console.log("upload changed");
   }, [upload]);
+
   useEffect(() => {
     console.log("mounted or updated");
   }, []);
-
-  // useEffect(() => {
-  //   return () => {
-  //     console.log("unmount");
-  //   };
-  // }, []);
 
   // edit form should pops up when button is clicked
   const toggleEditForm = () => {
@@ -66,10 +65,10 @@ const Profile = props => {
 
   const handleChange = event => {
     setQuote(event.target.value);
+    setSubmitButton(true);
   };
 
   const handleUpload = event => {
-    console.log("The file to be uploaded is: ", event.target.files[0]);
     setUpload(true);
 
     const uploadData = new FormData();
@@ -81,6 +80,7 @@ const Profile = props => {
         const image = response.data.secure_url;
         setImage(image);
         setUpload(false);
+        setUploaded(true);
       })
       .catch(err => {
         console.log(err);
@@ -94,6 +94,7 @@ const Profile = props => {
       .then(response => {
         setUser(response.data);
         setImage(image);
+        console.log(setUploaded);
         setQuote(response.data.quote);
         setEditForm(false);
       })
@@ -109,72 +110,95 @@ const Profile = props => {
 
   console.log("USAR", user);
   return (
-    <div>
-      <h1>Profile</h1>
-      <img src={user.image} height="150px" />
-      <h2>{user.username}</h2>
-      <h5>
-        gerriting since{" "}
-        {user.created_at.slice(8, 10) +
-          "-" +
-          user.created_at.slice(5, 7) +
-          "-" +
-          user.created_at.slice(0, 4)}
-      </h5>
-      <h5>so far {messages} messages sent</h5>
-      {user.quote && <h5>Quote: "{user.quote}"</h5>}
-      {canUpdate && (
-        <>
-          <Button onClick={toggleEditForm}>Edit profile</Button>
-        </>
-      )}
-
-      {editForm && (
-        <Form onSubmit={handleSubmit}>
-          <Form.Group>
-            <Form.Label htmlFor="quote">Quote </Form.Label>
-            <Form.Control
-              type="text"
-              name="description"
-              value={quote}
-              onChange={handleChange}
-            />
-          </Form.Group>
-          <Button type="submit">Submit</Button>
-        </Form>
-      )}
-      {upload && (
-        <div className="loadingio-spinner-spinner-8gmk4npur0m">
-          <div className="ldio-utk0u7ye5gr">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+    <div className="profile-page" id="section1">
+      <div className="profile">
+        <h1>Profile</h1>
+        <img className="profile-picture" src={user.image} />
+        <h2>{user.username}</h2>
+        <p>
+          Connected since{" "}
+          {user.created_at.slice(5, 7) + "|" + user.created_at.slice(0, 4)}
+        </p>
+        {/* <h5>so far {messages} messages sent</h5> */}
+        {user.quote && <h5>"{user.quote}"</h5>}
+        {canUpdate && (
+          <>
+            <div Button>
+              <a href="#section2">
+                <button
+                  className="main-cta orange-gradient shadow"
+                  onClick={toggleEditForm}
+                >
+                  EDIT PROFILE
+                </button>
+              </a>
+            </div>
+          </>
+        )}
+      </div>
+      <div className="edit-profile" id="section2">
+        {editForm && (
+          <form className="form-quote" onSubmit={handleSubmit}>
+            <div className="input-container">
+              {user.quote ? (
+                <label htmlFor="quote">Edit quote</label>
+              ) : (
+                <label htmlFor="quote">Add quote</label>
+              )}
+              <input
+                type="text"
+                name="quote"
+                value={quote}
+                onChange={handleChange}
+              />
+            </div>
+            {submitButton && <button type="submit">Submit</button>}
+          </form>
+        )}
+        {upload && (
+          <div className="loadingio-spinner-spinner-8gmk4npur0m">
+            <div className="ldio-utk0u7ye5gr">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
           </div>
-        </div>
-      )}
-      {editForm && (
-        <Form onSubmit={handleSubmit}>
-          <Form.Group>
-            <Form.Label htmlFor="image">Edit profile picture</Form.Label>
-            <input
-              type="file"
-              name="image"
-              id="image"
-              onChange={handleUpload}
-            />
-          </Form.Group>
-          {!upload && <Button type="submit">Submit</Button>}
-        </Form>
-      )}
+        )}
+        {!upload && (
+          <div>
+            {editForm && (
+              <form className="form-image" onSubmit={handleSubmit}>
+                <div className="input-container">
+                  <label htmlFor="image">Edit profile picture </label>
+                  <input
+                    type="file"
+                    name="image"
+                    id="image"
+                    onChange={handleUpload}
+                  />
+                </div>
+                <a href="#section1">
+                  <button
+                    className="main-cta orange-gradient shadow"
+                    type="submit"
+                  >
+                    Submit
+                  </button>
+                </a>
+              </form>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

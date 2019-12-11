@@ -8,7 +8,7 @@ import "./SideDrawer.css";
 const sideDrawer = props => {
   const handleLogout = () => {
     logout();
-    console.log("props", props);
+    console.log("propsSIDEDRAWER", props);
     props.clearUser(null);
   };
 

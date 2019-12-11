@@ -57,6 +57,7 @@ const App = props => {
             user={user}
             setUser={setUser}
             userChatroom={userChatroom}
+            clearUser={setUser}
           />
           <Route exact path="/map" component={Map} />
           <Route

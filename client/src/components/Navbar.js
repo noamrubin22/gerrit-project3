@@ -4,6 +4,7 @@ import SideDrawer from "./SideDrawer/SideDrawer";
 import Backdrop from "./Backdrop/Backdrop";
 
 const Navbar = props => {
+  console.log("NAVBAR PROPS", props);
   const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
 
   const drawerToggleClickHandler = event => {

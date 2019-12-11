@@ -19,32 +19,32 @@ const App = props => {
   useEffect(() => {
     setLocation()
       .then(result => {
-        // setUserChatroom(result.userChatroom);
+        setUserChatroom(result.userChatroom);
         console.log("setting location: ", result)
         setUserLocation(result.userLocation);
+        console.log("rerender after setting location");
+        navigator.geolocation.watchPosition(() =>
+          setLocation()
+            .then(result => {
+              setUserChatroom(result.userChatroom);
+              setUserLocation(result.userLocation);
+            })
+            .catch(err => console.log(err))
+        );
       })
       .catch(err => console.log(err));
 
-    navigator.geolocation.watchPosition(() =>
-      setLocation()
-        .then(result => {
-          setUserChatroom(result.userChatroom);
-          setUserLocation(result.userLocation);
-        })
-        .catch(err => console.log(err))
-    );
   }, []);
 
   return (
     <div className="App">
-      {/* <Navbar user={user} clearUser={setUser} /> */}
       <Switch>
         <Route
           exact
           path="/"
           render={props => (
             <Landingpage
-              {...props}
+              // {...props}
               setUser={setUser}
               setUserChatroom={setUserChatroom}
               userChatroom={userChatroom}
@@ -52,54 +52,58 @@ const App = props => {
           )}
         />
         <>
-        <Navbar />
-        <Route exact path="/map">
-          <Map />
-        </Route>
-        <Route
-          exact
-          path="/chat"
-          render={props => {
-            // only users can get into chat
-            if (user) {
-              return <Chat {...props} user={user} />;
-            } else {
-              return <Redirect to="/" />;
-            }
-          }}
-        />
-        <Route
-          exact
-          path="/profile/:id"
-          render={props => {
-            // only users can get into chat
-            if (user) {
-              return <Profile {...props} user={user} />;
-            } else {
-              return <Redirect to="/" />;
-            }
-          }}
-        />
+          <Navbar
+            {...props}
+            user={user}
+            setUser={setUser}
+            userChatroom={userChatroom}
+            clearUser={setUser}
+          />
+          <Route exact path="/map" component={Map} />
+          <Route
+            exact
+            path="/chat"
+            render={props => {
+              // only users can get into chat
+              if (user) {
+                return <Chat {...props} user={user} />;
+              } else {
+                return <Redirect to="/" />;
+              }
+            }}
+          />
+          <Route
+            exact
+            path="/profile/:id"
+            render={props => {
+              // only users can get into chat
+              if (user) {
+                return <Profile {...props} user={user} setUser={setUser} />;
+              } else {
+                return <Redirect to="/" />;
+              }
+            }}
+          />
 
-        <Route
-          exact
-          path="/chat/:room"
-          render={props => {
-            // only users can get into chat
-            if (user) {
-              return (
-                <Chat
-                  {...props}
-                  user={user}
-                  userChatroom={userChatroom}
-                  setUserChatroom={setUserChatroom}
-                />
-              );
-            } else {
-              return <Redirect to="/" />;
-            }
-          }}
-        />
+          <Route
+            exact
+            path="/chat/:room"
+            render={props => {
+              // only users can get into chat
+              if (user) {
+                return (
+                  <Chat
+                    {...props}
+                    user={user}
+                    userChatroom={userChatroom}
+                    setUserChatroom={setUserChatroom}
+                  />
+                );
+              } else {
+                return <Redirect to="/" />;
+              }
+            }}
+          />
         </>
       </Switch>
     </div>

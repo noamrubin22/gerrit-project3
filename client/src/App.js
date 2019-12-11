@@ -20,7 +20,7 @@ const App = props => {
     setLocation()
       .then(result => {
         // setUserChatroom(result.userChatroom);
-        console.log("setting location")
+        console.log("setting location: ", result)
         setUserLocation(result.userLocation);
       })
       .catch(err => console.log(err));

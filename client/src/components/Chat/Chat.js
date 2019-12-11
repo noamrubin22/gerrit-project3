@@ -3,7 +3,8 @@ import axios from "axios";
 import socketIOClient from "socket.io-client";
 import Message from "../Message";
 import Navbar from "../Navbar";
-import hermannplatz from "../../images/hermannplatz_round.png";
+import green from "../../images/green3.png";
+import send from "../../images/send-icon.png";
 
 import "./Chat.css";
 
@@ -24,15 +25,17 @@ const Chat = props => {
     axios
       .get(`/chat/${props.userChatroom}`)
       .then(messages => {
-        setMessages(messages.data);
+        setMessages(messages.data.reverse().slice(0, 8));
       })
       .catch(err => console.log(err));
 
     socket.on("message", foo => {
+      let counter = 8;
       axios
         .get(`/chat/${props.userChatroom}`)
         .then(messages => {
-          setMessages(messages.data);
+          counter++;
+          setMessages(messages.data.reverse().slice(0, counter));
         })
         .catch(err => console.log(err));
     });
@@ -58,15 +61,8 @@ const Chat = props => {
     <div>
       {/* <Navbar {...props}/> */}
       <div className="chatroom-info">
-        <h1>You are currently live at:</h1>
-        <div className="chatroom-info-details">
-          <img
-            className="chatroom-icon"
-            src={hermannplatz}
-            alt="hermannplatz"
-          />
-          <h2>{props.userChatroom}</h2>
-        </div>
+        <img className="traffic-light" src={green} alt="green-light" />
+        <h2>{props.userChatroom}</h2>
       </div>
       <div className="messageContainer">
         {messages
@@ -82,6 +78,7 @@ const Chat = props => {
             );
           })}
       </div>
+      <div className="buffer-div"></div>
       <div className="chat-input-container">
         <form onSubmit={handleSubmit}>
           <input
@@ -92,7 +89,7 @@ const Chat = props => {
             placeholder="Type something here.."
             onChange={handleInputChange}
           />
-          <button type="submit">Submit</button>
+          <button class="send-message" type="submit"></button>
         </form>
       </div>
     </div>

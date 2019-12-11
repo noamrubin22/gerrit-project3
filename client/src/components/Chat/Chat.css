@@ -1,15 +1,18 @@
 .chatroom-info{
   padding: 0 20px 0 20px;
-  margin-top: 30px;
   display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  height: 130px;
+  align-items: center;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.8);
+  top: 60px;
+  position: fixed;
+  width: 100%;
 }
 
-.chatroom-info > h1 {
+.chatroom-info > h2 {
   margin-top: 0;
   margin-bottom: 0;
+  margin-left: 15px;
 }
 
 .chatroom-info-details {
@@ -24,14 +27,14 @@
 
 .messageContainer {
   display: flex;
-  flex-direction: column;
-  background-image: url("../../images/bg-blue-trans.png");
-  background-repeat: repeat;
+  margin-bottom: 60px;
+  flex-direction: column-reverse;
+  overflow-y: scroll;
+  flex: 1;
   background-size: 180% auto;
-  background-color: rgba(255,255,255,0.3);
-    background-blend-mode: lighten;
-  /* background-color: #4D8FAC; */
-  padding: 0 6px 0 6px;
+  background-blend-mode: lighten;
+  background-image: linear-gradient(to bottom, #ffdbd9 , #ffb5c8);
+  padding: 32px 6px 0px 6px;
 }
 
 .own-message {
@@ -95,11 +98,31 @@
 .chat-input-container {
   height: 60px;
   position: fixed;
+  display: flex;
+  align-items: center;
+  justify-items: center;
   bottom: 0;
   background-color: white;
-  width: 100%
+  width: 100%;
+}
+
+.chat-input-container > form {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 0 10px 0 10px;
 }
 
 .chat-input-container > form > input {
-  width: 80%;
+  width: 70%;
+}
+
+.send-message {
+  height: 38px;
+  width: 38px;
+  background-image: url("../../images/send-icon.png");
+  background-color: white;
+  background-size: cover;
+  border: none;
 }

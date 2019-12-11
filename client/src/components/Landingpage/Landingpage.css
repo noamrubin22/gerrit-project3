@@ -11,7 +11,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid lightgray
 }
 
 .availability {
@@ -41,7 +41,7 @@
   background-color: rgb(188, 188, 188);
   border: none;
   font-weight: bold;
-  color: white;
+  color:white;
 }
 
 .left-switch {
@@ -69,13 +69,13 @@
   font-size: 12px;
 }
 
-/* .input-container > input {
+.input-container > input {
   border: 1px solid lightgray;
   background-color: #EEEEEE;
   width: 100%;
   height: 36px;
   margin-top: 3px;
-} */
+}
 
 .main-cta {
   height: 50px;
@@ -92,10 +92,3 @@
   margin-top: 20px;
 }
 
-.grey-light {
-  height: 3px;
-}
-
-.traffic-light {
-  height: 18px;
-}

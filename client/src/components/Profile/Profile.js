@@ -152,7 +152,7 @@ const Profile = props => {
                 onChange={handleChange}
               />
             </div>
-            {submitButton && <button type="submit">Submit</button>}
+            {submitButton && <button type="submit">UPDATE</button>}
           </form>
         )}
         {upload && (

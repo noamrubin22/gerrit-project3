@@ -69,13 +69,13 @@
   font-size: 12px;
 }
 
-/* .input-container > input {
+.input-container > input {
   border: 1px solid lightgray;
   background-color: #EEEEEE;
   width: 100%;
   height: 36px;
   margin-top: 3px;
-} */
+}
 
 .main-cta {
   height: 50px;

@@ -35,7 +35,8 @@ const Landingpage = props => {
         { props.userChatroom && props.userChatroom.length > 0 ?
         <>
         <div>
-          <img className="traffic-light" src={green} alt="green-light"/><img className="traffic-light grey-light" src={grey} alt="grey-light"/>
+          <img className="traffic-light" src={green} alt="green-light"/>
+          <img className="traffic-light grey-light" src={grey} alt="grey-light"/>
         </div>
         <div>
           <p>Connect with people that are near you by joining one of our local chatrooms.</p>

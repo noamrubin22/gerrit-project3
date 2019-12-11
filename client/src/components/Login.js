@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { login } from "../services/auth";
 import { Alert } from "react-bootstrap";
-import {setLocation} from "../services/location";
+import { setLocation } from "../services/location";
 
 const Login = props => {
   const [credentials, setCredentials] = useState({
@@ -10,6 +10,10 @@ const Login = props => {
   });
 
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    console.log("mounted or updated");
+  }, []);
 
   const handleChange = event => {
     setCredentials({
@@ -20,32 +24,30 @@ const Login = props => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    console.log("Login clicked")
-    login(credentials.username, credentials.password)
-    .then(data => {
+    console.log("Login clicked");
+    login(credentials.username, credentials.password).then(data => {
       console.log(data);
       if (data.message) {
         setError(data.message);
+        console.log(error);
         console.log("user: ", data.message);
-      } 
-      else {
+      } else {
         // lift the data up to the App state
         console.log("setting the user: ", data);
         props.setUser(data);
-        
+
         if (!props.userChatroom) {
           props.history.push("/map");
-        }
-        else {
+        } else {
           props.history.push(`/chat/${props.userChatroom}`);
         }
-  
-    }
-  })}
+      }
+    });
+  };
   return (
     <div>
       <form className="form-submission" onSubmit={handleSubmit}>
-          <div className="input-container">
+        <div className="input-container">
           <label htmlFor="username">Username: </label>
           <input
             className="input-field"
@@ -55,10 +57,10 @@ const Login = props => {
             value={props.username}
             onChange={handleChange}
           />
-          </div>
-          <div className="input-container">
+        </div>
+        <div className="input-container">
           <label htmlFor="password">Password: </label>
-          <input 
+          <input
             className="input-field"
             type="password"
             name="password"
@@ -66,9 +68,11 @@ const Login = props => {
             value={props.password}
             onChange={handleChange}
           />
-          </div>
-        {/* {error && <Alert variant="danger">{error}</Alert>} */}
-        <button className="main-cta orange-gradient shadow" type="submit">LOG IN</button>
+        </div>
+        {error && <h4 style={{color:"red"}}>{error}</h4>}
+        <button className="main-cta orange-gradient shadow" type="submit">
+          LOG IN
+        </button>
       </form>
     </div>
   );

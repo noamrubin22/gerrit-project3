@@ -60,7 +60,7 @@ const getGeoBuckets = (initialCoordinates, sideLength, horizontalBucketsAmount, 
   }
   
   mongoose
-    .connect('mongodb://localhost/gerrit-project3', {useNewUrlParser: true})
+    .connect(process.env.MONGODB_URI || 'mongodb://localhost/gerrit-project3', {useNewUrlParser: true})
     .then(x => {
       console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
     })

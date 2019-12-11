@@ -5,7 +5,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Navbar from "./components/Navbar";
-import Profile from "./components/Profile";
+import Profile from "./components/Profile/Profile";
 import Chat from "./components/Chat/Chat";
 import Landingpage from "./components/Landingpage/Landingpage";
 import { setLocation } from "./services/location";

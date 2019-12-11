@@ -3,8 +3,11 @@ import axios from "axios";
 import socketIOClient from "socket.io-client";
 import Message from "../Message";
 import Navbar from "../Navbar";
-import hermannplatz from "../../images/hermannplatz_round.png"
- 
+import green from "../../images/green3.png";
+import send from "../../images/send-icon.png"
+
+import './Chat.css';
+
 
 const endpoint = "http://localhost:5555"; // socket io connection
 const socket = socketIOClient(endpoint);
@@ -20,34 +23,27 @@ const Chat = props => {
   //when the component is mounted, it starts listening for events of the type "message"
   //if such an event is noticed, the state "messages" is changed, so that the messageg is messagesed above the input form
   useEffect(() => {
-    console.log(props.userChatroom);
     axios.get(`/chat/${props.userChatroom}`)
       .then(messages => {
-        console.log(messages);
-        setMessages(messages.data);
+        setMessages(messages.data.reverse().slice(0,8));
       })
       .catch(err => console.log(err));
 
     socket.on("message", foo => {
+      let counter = 8;
       axios.get(`/chat/${props.userChatroom}`)
         .then(messages => {
-          console.log(messages);
-          setMessages(messages.data);
+          counter++;
+          setMessages(messages.data.reverse().slice(0,counter));
         })
         .catch(err => console.log(err));
-
     });
+  }, [])
 
-    const checkLocation = setInterval( () => {
-      
-    })
-  }, []);
-  
   const handleSubmit = event => {
-    console.log(props.userChatroom)
     event.preventDefault();
     axios.post("/chat", ({message:input, user:props.user, chatroom: props.userChatroom}))
-      .then(() => {
+      .then((res) => {
         socket.emit("message", input)
       })
       .catch(err => console.log(err))
@@ -60,23 +56,23 @@ const Chat = props => {
     <div>
       <Navbar {...props}/>
       <div className="chatroom-info">
-        <h1>You are currently live at:</h1>
-        <div className="chatroom-info-details">
-          <img src={hermannplatz} alt="hermannplatz"/>
-          <h2>{props.userChatroom}</h2>
-        </div>
+          <img className="traffic-light" src={green} alt="green-light"/>
+            <h2>{props.userChatroom}</h2>
       </div>
-      {messages
-        .filter(message => message.chatroom === props.userChatroom)
-        .map((message, index) => {
-        return(
-          <Message user={props.user} userChatroom={props.userChatroom} message={message} key={index}/>
-        )
-      })}
-      <div>
+      <div className="messageContainer">
+        {messages
+          .filter(message => message.chatroom === props.userChatroom)
+          .map((message, index) => {
+          return(
+            <Message user={props.user} userChatroom={props.userChatroom} message={message} key={index}/>
+          )
+        })}
+      </div>
+      <div className="buffer-div"></div>
+      <div className="chat-input-container">
       <form onSubmit={handleSubmit}>
-        <input type="text" name="input" value={input} placeholder="Type something here.." onChange={handleInputChange}/>
-        <button type="submit">Submit</button>
+        <input className="input-field" type="text" name="input" value={input} placeholder="Type something here.." onChange={handleInputChange}/>
+        <button class="send-message" type="submit"></button>
       </form>
       </div>
     </div>

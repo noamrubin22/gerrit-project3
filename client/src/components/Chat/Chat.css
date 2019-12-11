@@ -1,3 +1,128 @@
 .chatroom-info{
-  padding: 15px 20px 15px 20px;
+  padding: 0 20px 0 20px;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.8);
+  top: 60px;
+  position: fixed;
+  width: 100%;
+}
+
+.chatroom-info > h2 {
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 15px;
+}
+
+.chatroom-info-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.chatroom-icon {
+  height: 70px;
+}
+
+.messageContainer {
+  display: flex;
+  margin-bottom: 60px;
+  flex-direction: column-reverse;
+  overflow-y: scroll;
+  flex: 1;
+  background-size: 180% auto;
+  background-blend-mode: lighten;
+  background-image: linear-gradient(to bottom, #ffdbd9 , #ffb5c8);
+  padding: 32px 6px 0px 6px;
+}
+
+.own-message {
+  margin: 10px 0 10px 0;
+  width: 80vw;
+  align-self: flex-end;
+  display: flex;
+}
+
+.other-message {
+  margin: 10px 0 10px 0;
+  width: 80vw;
+  align-self: flex-start;
+  display: flex;
+}
+
+.own-message-body {
+  background-color: #e6faff;
+  /* background-color: #ffeeed; */
+  width: 100%;
+  padding: 2px 4px 2px 2px;
+  font-size: 12px;
+}
+
+.other-message-body {
+  background-color: white;
+  width: 100%;
+  padding: 2px 4px 2px 2px;
+  font-size: 12px;
+}
+
+.arrow-right {
+    width: 0; 
+    height: 0; 
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    border-left: 7px solid #e6faff;
+    align-self: flex-end;
+}
+
+.arrow-left {
+  width: 0; 
+  height: 0; 
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-right: 7px solid white;
+  align-self: flex-end;
+}
+
+.username {
+  font-weight: 900;
+}
+
+.message-timestamp {
+  text-align: right;
+  font-size: 11px;
+  color: grey;
+  font-weight: bold;
+}
+
+.chat-input-container {
+  height: 60px;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  bottom: 0;
+  background-color: white;
+  width: 100%;
+}
+
+.chat-input-container > form {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 0 10px 0 10px;
+}
+
+.chat-input-container > form > input {
+  width: 70%;
+}
+
+.send-message {
+  height: 38px;
+  width: 38px;
+  background-image: url("../../images/send-icon.png");
+  background-color: white;
+  background-size: cover;
+  border: none;
 }

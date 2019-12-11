@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
-import ReactMapGL, { Marker } from "react-map-gl";
+import { StaticMap, Marker, GeolocateControl } from "react-map-gl";
 import "../App.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "react-bootstrap";
-import BucketMarker from "./BucketMarker";
 
 let reactMap;
+
+const geolocateStyle = {
+  position: "absolute",
+  top: 0,
+  left: 0,
+  margin: 10
+};
 
 const coordinates = {
   jewishMuseum: [
@@ -48,18 +54,18 @@ const coordinates = {
 const Map = () => {
   const [state, setState] = useState({
     viewport: {
-      width: 375,
-      height: 650,
+      width: 370,
+      height: 675,
       longitude: 13.412524,
-      latitude: 52.490441,
-      zoom: 12
+      latitude: 52.492441,
+      zoom: 12.4
     }
   });
 
   useEffect(() => {
     const map = reactMap.getMap();
     map.on("load", () => {
-      console.log(map);
+      map.scrollZoom.disable();
       map.addLayer({
         id: "lines",
         type: "line",
@@ -140,37 +146,57 @@ const Map = () => {
   }, []);
 
   return (
-    <div className="mapContainer">
-      <h1 id="mapHeader">All live walls</h1>
-      <div className="map">
-        <ReactMapGL
-          ref={map => (reactMap = map)}
-          mapboxApiAccessToken={
-            "pk.eyJ1IjoiYXJlc2FuIiwiYSI6ImNrM3UzYWxjbzAyYWMzbHRkYThjeGU3ODMifQ.uMuoyhCcGP0EXyd_f-oS0g"
-          }
-          {...state.viewport}
-          onViewportChange={viewport => setState({ viewport })}
-        >
-          <Marker longitude={13.3974835} latitude={52.5019465}>
-            <BucketMarker size={15} />
-          </Marker>
-          <Marker longitude={13.4125165} latitude={52.5019465}>
-            <BucketMarker size={15} />
-          </Marker>
-          <Marker longitude={13.4275495} latitude={52.5019465}>
-            <BucketMarker size={15} />
-          </Marker>
-          <Marker longitude={13.3974835} latitude={52.4869135}>
-            <BucketMarker size={15} />
-          </Marker>
-          <Marker longitude={13.4125165} latitude={52.4869135}>
-            <BucketMarker size={15} />
-          </Marker>
-          <Marker longitude={13.4275495} latitude={52.4869135}>
-            <BucketMarker size={15} />
-          </Marker>
-        </ReactMapGL>
-      </div>
+    <div className="map">
+      <StaticMap
+        ref={map => (reactMap = map)}
+        mapboxApiAccessToken={
+          "pk.eyJ1IjoiYXJlc2FuIiwiYSI6ImNrM3UzYWxjbzAyYWMzbHRkYThjeGU3ODMifQ.uMuoyhCcGP0EXyd_f-oS0g"
+        }
+        {...state.viewport}
+        onViewportChange={viewport => setState({ viewport })}
+      >
+        <div>
+          <h1 id="map-header">All six chatrooms</h1>
+        </div>
+        <Marker longitude={13.389967} latitude={52.509463}>
+          <div className="bucketName">
+            <p>Jewish Museum</p>
+          </div>
+        </Marker>
+
+        <Marker longitude={13.405} latitude={52.509463}>
+          <div className="bucketName">
+            <p>Kreuzberg North</p>
+          </div>
+        </Marker>
+
+        <Marker longitude={13.420033000000002} latitude={52.509463}>
+          <div className="bucketName">
+            <p>Lausitzer Platz</p>
+          </div>
+        </Marker>
+
+        <Marker longitude={13.389967} latitude={52.494429999999994}>
+          <div className="bucketName">
+            <p>Bergmannkiez</p>
+          </div>
+        </Marker>
+        <Marker longitude={13.405000000000001} latitude={52.494429999999994}>
+          <div className="bucketName">
+            <p>Hansenheide</p>
+          </div>
+        </Marker>
+        <Marker longitude={13.420033000000002} latitude={52.494429999999994}>
+          <div className="bucketName">
+            <p>Hermannplatz</p>
+          </div>
+        </Marker>
+        <GeolocateControl
+          style={geolocateStyle}
+          positionOptions={{ enableHighAccuracy: true }}
+          trackUserLocation={true}
+        />
+      </StaticMap>
     </div>
   );
 };

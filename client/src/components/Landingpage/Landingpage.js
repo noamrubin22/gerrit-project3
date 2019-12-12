@@ -1,5 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
-import { Route, Redirect } from "react-router-dom";
+import React, { useState } from "react";
 import signet from "../../images/signet.png";
 import green from "../../images/green3.png";
 import grey from "../../images/grey.png";
@@ -7,7 +6,7 @@ import red from "../../images/red2.png";
 import "./Landingpage.css";
 import Login from "../Login";
 import Signup from "../Signup";
-import { setLocation } from "../../services/location";
+
 
 const Landingpage = props => {
   const [formDisplay, setFormDisplay] = useState("login");

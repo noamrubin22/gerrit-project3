@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 const Message = props => {
   let { username, content, created_at, userId } = props.message;

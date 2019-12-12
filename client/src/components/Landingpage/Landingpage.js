@@ -8,6 +8,7 @@ import "./Landingpage.css";
 import Login from "../Login";
 import Signup from "../Signup";
 import { setLocation } from "../../services/location";
+import Map from "../Map";
 
 const Landingpage = props => {
   const [formDisplay, setFormDisplay] = useState("login");
@@ -21,7 +22,6 @@ const Landingpage = props => {
   };
 
   console.log("Landingpage: ", props.userChatroom);
-  console.log("LANDINGPAGE PROPS", props);
 
   return (
     <div className="landing-page">
@@ -99,6 +99,9 @@ const Landingpage = props => {
           setUserChatroom={props.setUserChatroom}
         />
       )}
+      <div id="landingpageMap">
+        <Map />
+      </div>
     </div>
   );
 };

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { signup } from "../services/auth";
 import { setLocation } from "../services/location";
-import { Alert } from "react-bootstrap";
 
 const Signup = props => {
   const [credentials, setCredentials] = useState({
@@ -37,8 +36,8 @@ const Signup = props => {
         if (!props.userChatroom) {
           props.history.push("/map");
         } else {
-          // props.history.push(`/chat/${props.userChatroom}`);
-          props.history.push("/chat/${props.userChatroom}");
+          props.history.push(`/chat/${props.userChatroom}`);
+          // props.history.push("/chat/${props.userChatroom}");
         }
       }
     });

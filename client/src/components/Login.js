@@ -24,16 +24,11 @@ const Login = props => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    console.log("Login clicked");
     login(credentials.username, credentials.password).then(data => {
-      console.log(data);
       if (data.message) {
         setError(data.message);
-        console.log(error);
-        console.log("user: ", data.message);
       } else {
-        // lift the data up to the App state
-        console.log("setting the user: ", data);
+        // lift the data up to the App states
         props.setUser(data);
 
         if (!props.userChatroom) {
@@ -69,7 +64,7 @@ const Login = props => {
             onChange={handleChange}
           />
         </div>
-        {error && <h4 style={{color:"red"}}>{error}</h4>}
+        {error && <h4 style={{ color: "red" }}>{error}</h4>}
         <button className="main-cta orange-gradient shadow" type="submit">
           LOG IN
         </button>

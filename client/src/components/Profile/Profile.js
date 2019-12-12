@@ -123,99 +123,106 @@ const Profile = props => {
     canUpdate = true;
   }
 
+  console.log("USAR", user);
+
   const imageStyle = {
-    width: "150px",
-    height: "150px",
-    backgroundImage: `url(${user.image})`,
-    backgroundSize: "cover",
-    borderRadius: "50%",
-    margin: "10px"
-  };
+      width: "80px",
+      height: "80px",
+      backgroundImage: `url(${user.image})`,
+      backgroundSize: "cover",
+      borderRadius: "50%"
+    }
+  
+  
 
   return (
     <div className="profile-page" id="section1">
       <div className="profile">
-        <h1>{user.username}</h1>
-        <div style={imageStyle}></div>
-        <div className="user-info">
-          <p>
-            Connected since{" "}
-            {user.created_at.slice(5, 7) + "|" + user.created_at.slice(0, 4)}
-          </p>
-          {user.quote && <h3>"{user.quote}"</h3>}
+        <h1>Profile</h1>
+        <div style={imageStyle}>
         </div>
-        {/* only user can edit profile */}
+        <h2>{user.username}</h2>
+        <p>
+          Connected since{" "}
+          {user.created_at.slice(5, 7) + "|" + user.created_at.slice(0, 4)}
+        </p>
+        {/* <h5>so far {messages} messages sent</h5> */}
+        {user.quote && <h5>"{user.quote}"</h5>}
         {canUpdate && (
           <>
-            {/* change functionality button based on toggle */}
-            {!editForm ? (
-              <button
-                className="main-cta orange-gradient shadow"
-                onClick={toggleEditForm}
-              >
-                EDIT PROFILE
-              </button>
-            ) : (
-              <button
-                className="main-cta orange-gradient shadow"
-                onClick={handleSubmit}
-              >
-                UPDATE PROFILE
-              </button>
-            )}
+            <div Button>
+              <a href="#section2">
+                <button
+                  className="main-cta orange-gradient shadow"
+                  onClick={toggleEditForm}
+                >
+                  EDIT PROFILE
+                </button>
+              </a>
+            </div>
           </>
         )}
       </div>
-
       <div className="edit-profile" id="section2">
         {editForm && (
-          <form className="edit-container" onSubmit={handleSubmit}>
+          <form className="form-quote" onSubmit={handleSubmit}>
             <div className="input-container">
               {user.quote ? (
-                <label htmlFor="quote">Edit bio</label>
+                <label htmlFor="quote">Edit quote</label>
               ) : (
-                <label htmlFor="quote">Add a bio</label>
+                <label htmlFor="quote">Add quote</label>
               )}
               <input
-                className="input-field"
                 type="text"
                 name="quote"
                 value={quote}
                 onChange={handleChange}
               />
             </div>
-            <div className="input-container">
-              <label htmlFor="image">Edit profile picture </label>
-              <input
-                className="input-field"
-                type="file"
-                name="image"
-                id="image"
-                onChange={handleUpload}
-              />
-            </div>
+            {submitButton && <button type="submit">UPDATE</button>}
           </form>
         )}
-
-        {/* show spinner when picture is being uploaded to cloudinary */}
         {upload && (
-          <div className="spinner">
-            <div class="loadingio-spinner-spinner-oy8l5dlfwyd">
-              <div class="ldio-dtnk0tydtrg">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
+          <div className="loadingio-spinner-spinner-8gmk4npur0m">
+            <div className="ldio-utk0u7ye5gr">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
             </div>
+          </div>
+        )}
+        {!upload && (
+          <div>
+            {editForm && (
+              <form className="form-image" onSubmit={handleSubmit}>
+                <div className="input-container">
+                  <label htmlFor="image">Edit profile picture </label>
+                  <input
+                    type="file"
+                    name="image"
+                    id="image"
+                    onChange={handleUpload}
+                  />
+                </div>
+                <a href="#section1">
+                  <button
+                    className="main-cta orange-gradient shadow"
+                    type="submit"
+                  >
+                    Submit
+                  </button>
+                </a>
+              </form>
+            )}
           </div>
         )}
       </div>

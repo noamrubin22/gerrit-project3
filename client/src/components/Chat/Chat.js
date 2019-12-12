@@ -8,7 +8,7 @@ import send from "../../images/send-icon.png";
 
 import "./Chat.css";
 
-const endpoint = "http://localhost:5555"; // socket io connection
+const endpoint = process.env.REACT_APP_SERVER_URL; // socket io connection
 const socket = socketIOClient(endpoint);
 
 const Chat = props => {

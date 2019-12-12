@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
 import "./App.css";
 import "mapbox-gl/dist/mapbox-gl.css";
-import Login from "./components/Login";
-import Signup from "./components/Signup";
 import Navbar from "./components/Navbar";
 import Profile from "./components/Profile/Profile";
 import Chat from "./components/Chat/Chat";
@@ -20,7 +18,7 @@ const App = props => {
     setLocation()
       .then(result => {
         setUserChatroom(result.userChatroom);
-        console.log("setting location: ", result)
+        console.log("setting location: ", result);
         setUserLocation(result.userLocation);
         console.log("rerender after setting location");
         navigator.geolocation.watchPosition(() =>
@@ -33,7 +31,6 @@ const App = props => {
         );
       })
       .catch(err => console.log(err));
-
   }, []);
 
   return (

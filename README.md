@@ -5,6 +5,8 @@ This was our final project as web development students at Ironhack Berlin.
 We wanted to use everything we've learned so far, and create something that would be fun to use. Pierre Portal showed us this <a href="https://github.com/pierreportal/socket-io-lecture-for-ironhack">cool and very light weight framework
 for implementing messaging</a>, so we decided to build a chat platform with predefined chatrooms that are only open to users in the same approximate geolocation. In other words: It lets you chat to randoms close by.
 
+To check out the deployed version, follow this link: https://justgerrit.herokuapp.com
+
 ## Getting started
 
 ### Prerequisites

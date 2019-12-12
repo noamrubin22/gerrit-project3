@@ -175,6 +175,7 @@ const Profile = props => {
               <input
                 type="text"
                 name="quote"
+                className="input-field"
                 value={quote}
                 onChange={handleChange}
               />

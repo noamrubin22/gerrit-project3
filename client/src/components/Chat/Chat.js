@@ -64,7 +64,7 @@ const Chat = props => {
         <img className="traffic-light" src={green} alt="green-light" />
         <h2>{props.userChatroom}</h2>
       </div>
-      <div className="messageContainer">
+      <div className="messageContainer" onLoad={window.scroll(0, 999999)}>
         {messages
           .filter(message => message.chatroom === props.userChatroom)
           .map((message, index) => {

@@ -10,7 +10,9 @@ const geolocateStyle = {
   position: "absolute",
   top: 0,
   left: 0,
-  margin: 10
+  margin: 10,
+
+
 };
 
 const coordinates = {

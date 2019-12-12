@@ -24,82 +24,86 @@ const Landingpage = props => {
   console.log("Landingpage: ", props.userChatroom);
 
   return (
-    <div className="landing-page">
-      <div className="signet-container">
-        <img src={signet} alt="signet" className="signet" />
-      </div>
-      <h1>Gerrit with Gerrits nearby!</h1>
-      <div className="availability">
-        {props.userChatroom && props.userChatroom.length > 0 ? (
-          <>
-            <div>
-              <img className="traffic-light" src={green} alt="green-light" />
-              <img
-                className="traffic-light grey-light"
-                src={grey}
-                alt="grey-light"
-              />
-            </div>
-            <div>
-              <p>
-                Connect with people that are near you by joining one of our
-                local chatrooms.
-              </p>
-            </div>
-          </>
+    <div>
+      <div className="auth-front">
+        <div className="signet-container">
+          <img src={signet} alt="signet" className="signet" />
+        </div>
+        <h1 id="front-header">Chat with folk close by!</h1>
+        <div className="availability">
+          {props.userChatroom && props.userChatroom.length > 0 ? (
+            <>
+              <div id="front-lights">
+                <img className="traffic-light" src={green} alt="green-light" />
+                <img
+                  className="traffic-light grey-light"
+                  src={grey}
+                  alt="grey-light"
+                />
+              </div>
+              <div>
+                <p id="front-USP">
+                  Join one of our local chatrooms and connect with people
+                  nearby, right now!
+                </p>
+              </div>
+            </>
+          ) : (
+            <>
+              <div>
+                <img
+                  className="traffic-light grey-light"
+                  src={grey}
+                  alt="grey-light"
+                />
+                <img className="traffic-light" src={red} alt="red-light" />
+              </div>
+              <div>
+                <p id="front-USP">
+                  Sorry, there is no chatroom available at your current
+                  location. Check out <a href="#front-map">the map</a> to find
+                  the nearest chatroom.
+                </p>
+              </div>
+            </>
+          )}
+        </div>
+        <div className="switch-container">
+          <button
+            className={`switch left-switch ${
+              formDisplay === "login" ? "orange-gradient" : ""
+            }`}
+            onClick={handleClick}
+            name="loginToggle"
+          >
+            Log in
+          </button>
+          <button
+            className={`switch right-switch ${
+              formDisplay === "signup" ? "orange-gradient" : ""
+            }`}
+            onClick={handleClick}
+            name="signupToggle"
+          >
+            Sign up
+          </button>
+        </div>
+        {formDisplay === "login" ? (
+          <Login
+            {...props}
+            setUser={props.setUser}
+            setUserChatroom={props.setUserChatroom}
+          />
         ) : (
-          <>
-            <div>
-              <img
-                className="traffic-light grey-light"
-                src={grey}
-                alt="grey-light"
-              />
-              <img className="traffic-light" src={red} alt="red-light" />
-            </div>
-            <div>
-              <p>
-                Sorry, there is no chatroom available at your current location.
-                Check out the map to find the nearest chatroom.{" "}
-              </p>
-            </div>
-          </>
+          <Signup
+            {...props}
+            setUser={props.setUser}
+            setUserChatroom={props.setUserChatroom}
+          />
         )}
       </div>
-      <div className="switch-container">
-        <button
-          className={`switch left-switch ${
-            formDisplay === "login" ? "orange-gradient" : ""
-          }`}
-          onClick={handleClick}
-          name="loginToggle"
-        >
-          Log in
-        </button>
-        <button
-          className={`switch right-switch ${
-            formDisplay === "signup" ? "orange-gradient" : ""
-          }`}
-          onClick={handleClick}
-          name="signupToggle"
-        >
-          Sign up
-        </button>
-      </div>
-      {formDisplay === "login" ? (
-        <Login
-          {...props}
-          setUser={props.setUser}
-          setUserChatroom={props.setUserChatroom}
-        />
-      ) : (
-        <Signup
-          {...props}
-          setUser={props.setUser}
-          setUserChatroom={props.setUserChatroom}
-        />
-      )}
-      <div id="landingpageMap">
+      <div id="frontmap">
+        <a id="front-map" />
         <Map />
       </div>
     </div>

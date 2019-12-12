@@ -1,6 +1,5 @@
 import React from 'react';
 import logo from '../../images/logo.png';
-import signet from '../../images/signet.png';
 
 import DrawerToggleButton from '../SideDrawer/DrawerToggleButton';
 import './Toolbar.css';

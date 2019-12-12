@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { login } from "../services/auth";
-import { Alert } from "react-bootstrap";
-import {setLocation} from "../services/location";
 
 const Login = props => {
   const [credentials, setCredentials] = useState({

@@ -1,23 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 const Message = props => {
   let {username, content, created_at, userId} = props.message;
   created_at = created_at.slice(11,16);
-
-  const generalStyle = {
-    backgroundColor: "white",
-    margin: "10px 0 10px 0",
-    width: "80vw"
-  }
-
-  const ownStyle = {
-    backgroundColor: "yellow",
-    margin: "10px 0 10px 0",
-    width: "80vw",
-    alignSelf: "flex-end"
-  }
-  
-  
+    
   return(
     <>
     {props.user._id === userId ? 

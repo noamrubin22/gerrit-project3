@@ -14,7 +14,7 @@ router.post("/signup", (req, res) => {
   }
   if (password.length < 7) {
     return res.status(400).json({
-      messsage: "Password should have at least 7 characters "
+      message: "Password should have at least 7 characters "
     });
   }
 

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const Message = props => {
   let { username, content, created_at, userId } = props.message;
@@ -17,14 +18,15 @@ const Message = props => {
     alignSelf: "flex-end"
   };
 
+
   return (
     <>
       {props.user._id === userId ? (
         <div className="own-message">
           <div className="own-message-body">
-            <a href={`/profile/${props.user._id}`}>
+            <Link to={`/profile/${props.user._id}`}>
               <p className="username">{username}</p>
-            </a>
+            </Link>
             <p className="message-content">{content}</p>
             <p className="message-timestamp">{created_at}</p>
           </div>
@@ -34,9 +36,9 @@ const Message = props => {
         <div className="other-message">
           <div className="arrow-left"></div>
           <div className="other-message-body">
-            <a href={`/profile/${userId}`}>
+            <Link to={`/profile/${userId}`}>
               <p className="username">{username}</p>
-            </a>
+            </Link>
             <p className="message-content">{content}</p>
             <p className="message-timestamp">{created_at}</p>
           </div>

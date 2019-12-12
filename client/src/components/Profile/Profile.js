@@ -15,20 +15,29 @@ const Profile = props => {
   const [upload, setUpload] = useState(false);
   const [uploaded, setUploaded] = useState(false);
   const [submitButton, setSubmitButton] = useState(false);
-  console.log("props params:", props.match.params);
+  // console.log("props params:", props.match.params);
 
-  console.log("user props", props.user);
+  // console.log("user props", props.user);
   const { id } = props.match.params;
-
+  console.log(user.username);
   // first mount
+
   useEffect(() => {
-    console.log("did mount");
+    if (id != user._id) {
+      updateData(id);
+    } else {
+      return;
+    }
+  });
+
+  const updateData = id => {
     axios
       .get(`/profile/${id}`)
       .then(response => {
         setUser(response.data.user);
         setImage(response.data.user.image);
         setMessages(response.data.messages);
+        console.log("USER RESPONSE", response.data.user.username);
       })
       .catch(err => {
         if (err.response.status === 404) {
@@ -36,26 +45,32 @@ const Profile = props => {
           setError(err.response.data.message);
         }
       });
+  };
+
+  useEffect(() => {
+    updateData(id);
+    // console.log("did mount");
+    // console.log("HALLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO", id);
   }, []);
 
   useEffect(() => {
-    console.log("imageChanged");
+    // console.log("imageChanged");
   }, [image]);
 
   useEffect(() => {
-    console.log("quote Changed");
+    // console.log("quote Changed");
   }, [quote]);
 
   useEffect(() => {
-    console.log("editform Changed");
+    // console.log("editform Changed");
   }, [editForm]);
 
   useEffect(() => {
-    console.log("upload changed");
+    // console.log("upload changed");
   }, [upload]);
 
   useEffect(() => {
-    console.log("mounted or updated");
+    // console.log("mounted or updated");
   }, []);
 
   // edit form should pops up when button is clicked
@@ -160,6 +175,7 @@ const Profile = props => {
               <input
                 type="text"
                 name="quote"
+                className="input-field"
                 value={quote}
                 onChange={handleChange}
               />

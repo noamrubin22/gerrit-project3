@@ -34,7 +34,8 @@
   background-size: 180% auto;
   background-blend-mode: lighten;
   background-image: linear-gradient(to bottom, #ffdbd9 , #ffb5c8);
-  padding: 32px 6px 0px 6px;
+  padding: 0 6px 0px 6px;
+  height: 100vh;
 }
 
 .own-message {

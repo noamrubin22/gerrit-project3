@@ -8,7 +8,7 @@
 } */
 
 .profile {
-  /* padding: 20px; */
+  padding: 0 35px 0 35px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -18,24 +18,22 @@
 .user-info {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-content: center;
-  text-align: center;
-  padding: 10px;
-  margin: 2px;
-  border-style: inset;
-  border-color: #fc625b;
-  border-width: 0.6px;
-  border-radius: 14%;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255,255,255,0.9);
+  width: 100%;
+  margin: 0 35px 0 35px;
+  padding: 12px 0 5px 0;
 }
 
-/* .user-info > p {
-  margin: 10px;
+/* .profile > h1 {
+  margin: 14px 0 6px 0;
 } */
 
 .user-info > h3 {
   margin: 10px;
   font-style: oblique;
+  text-align: center;
 }
 .main-cta {
   height: 200px;
@@ -61,10 +59,7 @@ a {
   text-decoration: none;
 }
 .edit-container {
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  align-items: center;
+  padding: 0 35px 0 35px;
 }
 .input-container {
   height: 65px;
@@ -82,6 +77,44 @@ a {
 .form-quote {
   display: flex;
   justify-content: space-between;
+}
+
+.lobster-background {
+  background-image: url("../../images/bg-blue-trans.png");
+  width: 100vw;
+  padding: 35px 0 35px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.show{
+  display: block;
+  height: 40px;
+  width: 40px;
+}
+
+.upload{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  padding-left: 5px;
+}
+
+.upload > p {
+  margin-left: 10px;
+}
+
+.upload-field {
+  display: none; 
+}
+
+.since {
+  align-self: flex-end;
+  margin-right: 5px;
+  font-size: 12px;
+  color: grey
 }
 
 /* spinner */

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 // import { Button, Form } from "react-bootstrap";
 import "./Profile.css";
 // const uploadCloud = require("../cloudinary");
+import up from "../../images/up2.png"
 
 const Profile = props => {
   const [user, setUser] = useState(props.user);
@@ -124,12 +125,12 @@ const Profile = props => {
   }
 
   const imageStyle = {
-    width: "150px",
-    height: "150px",
+    width: "120px",
+    height: "120px",
     backgroundImage: `url(${user.image})`,
     backgroundSize: "cover",
     borderRadius: "50%",
-    margin: "10px"
+    margin: "0 0 10px 0"
   };
 
   return (
@@ -137,12 +138,14 @@ const Profile = props => {
       <div className="profile">
         <h1>{user.username}</h1>
         <div style={imageStyle}></div>
-        <div className="user-info">
-          <p>
-            Connected since{" "}
-            {user.created_at.slice(5, 7) + "|" + user.created_at.slice(0, 4)}
-          </p>
-          {user.quote && <h3>"{user.quote}"</h3>}
+        <div className="lobster-background">
+          <div className="user-info">
+            {user.quote && <h3>"{user.quote}"</h3>}
+            <p className="since" >
+              Gerriting since{" "}
+              {user.created_at.slice(5, 7) + "|" + user.created_at.slice(0, 4)}
+            </p>
+          </div>
         </div>
         {/* only user can edit profile */}
         {canUpdate && (
@@ -186,14 +189,19 @@ const Profile = props => {
               />
             </div>
             <div className="input-container">
-              <label htmlFor="image">Edit profile picture </label>
-              <input
-                className="input-field"
-                type="file"
-                name="image"
-                id="image"
-                onChange={handleUpload}
-              />
+              <label htmlFor="image">
+                <div className="upload">
+                <input
+                  className="upload-field"
+                  type="file"
+                  name="image"
+                  id="image"
+                  onChange={handleUpload}
+                />
+                <img className="show" src={up} alt="upload-icon"/>
+                <p>Upload a picture</p>
+                </div>
+              </label>
             </div>
           </form>
         )}

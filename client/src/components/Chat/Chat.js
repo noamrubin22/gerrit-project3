@@ -22,27 +22,35 @@ const Chat = props => {
   //when the component is mounted, it starts listening for events of the type "message"
   //if such an event is noticed, the state "messages" is changed, so that the messageg is messagesed above the input form
   useEffect(() => {
-    axios
-      .get(`/chat/${props.userChatroom}`)
-      .then(messages => {
-        setMessages(messages.data.reverse().slice(0, 8));
-      })
-      .catch(err => console.log(err));
+    console.log("render")
 
     socket.on("message", foo => {
       let counter = 8;
       axios
-        .get(`/chat/${props.userChatroom}`)
-        .then(messages => {
-          counter++;
-          setMessages(messages.data.reverse().slice(0, counter));
-        })
-        .catch(err => console.log(err));
+      .get(`/chat/${props.userChatroom}`)
+      .then(messages => {
+        counter++;
+        setMessages(messages.data.reverse().slice(0, counter));
+      })
+      .catch(err => console.log(err));
     });
   }, []);
+  
+  useEffect(() => {
+      console.log(props);
+      axios
+        .get(`/chat/${props.userChatroom}`)
+        .then(messages => {
+          console.log("getting new messages: ", messages);
+          setMessages(messages.data.reverse().slice(0, 8));
+        })
+        .catch(err => console.log(err));
+  }, [props.userChatroom])
+
 
   const handleSubmit = event => {
     event.preventDefault();
+    console.log("posting the chatroom: ", props.userChatroom)
     axios
       .post("/chat", {
         message: input,
@@ -89,7 +97,7 @@ const Chat = props => {
             placeholder="Type something here.."
             onChange={handleInputChange}
           />
-          <button class="send-message" type="submit"></button>
+          <button className="send-message" type="submit"></button>
         </form>
       </div>
     </div>

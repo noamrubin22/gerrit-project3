@@ -17,21 +17,25 @@ const App = props => {
   useEffect(() => {
     setLocation()
       .then(result => {
-        setUserChatroom(result.userChatroom);
+        if (result.userChatroom != userChatroom) {
+          setUserChatroom(result.userChatroom);
+        }
         console.log("setting location: ", result);
-        setUserLocation(result.userLocation);
+        // setUserLocation(result.userLocation);
         console.log("rerender after setting location");
-        navigator.geolocation.watchPosition(() =>
-          setLocation()
-            .then(result => {
-              setUserChatroom(result.userChatroom);
-              setUserLocation(result.userLocation);
-            })
-            .catch(err => console.log(err))
-        );
+        // navigator.geolocation.watchPosition(() =>
+        //   setLocation()
+        //     .then(result => {
+        //       setUserChatroom(result.userChatroom);
+        //       setUserLocation(result.userLocation);
+        //     })
+        //     .catch(err => console.log(err))
+        // );
       })
       .catch(err => console.log(err));
   }, []);
+
+  console.log("rerender");
 
   return (
     <div className="App">
@@ -94,7 +98,7 @@ const App = props => {
                     user={user}
                     userChatroom={userChatroom}
                     setUserChatroom={setUserChatroom}
-                  />
+                  /> 
                 );
               } else {
                 return <Redirect to="/" />;

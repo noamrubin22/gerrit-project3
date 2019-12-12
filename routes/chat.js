@@ -8,10 +8,10 @@ const User = require("../models/User");
 
 /* GET home page */
 router.get("/:chatroom", (req, res) => {
+  console.log(req.params.chatroom);
   Message.find( { chatroom: req.params.chatroom} )
     .populate("posted_by")
     .then(response => {
-      console.log(response)
       let data = response.map(message => {
         let {_id, content, created_at, chatroom} = message;
         let {username, geolocation} = message.posted_by;
@@ -26,6 +26,7 @@ router.get("/:chatroom", (req, res) => {
               chatroom: chatroom
             }
       })
+      console.log(data);
       res.json(data);
     }) 
     .catch(err => {

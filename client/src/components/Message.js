@@ -18,7 +18,6 @@ const Message = props => {
     alignSelf: "flex-end"
   };
 
-  console.log(props.user._id, "{}{}{}{}{}{", userId);
 
   return (
     <>

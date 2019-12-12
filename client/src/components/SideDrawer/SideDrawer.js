@@ -8,7 +8,7 @@ import "./SideDrawer.css";
 const sideDrawer = props => {
   const handleLogout = () => {
     logout();
-    console.log("propsSIDEDRAWER", props);
+    // console.log("propsSIDEDRAWER", props);
     props.clearUser(null);
   };
 
@@ -17,7 +17,8 @@ const sideDrawer = props => {
   if (props.show) {
     drawerClasses = "side-drawer open";
   }
-  console.log("PROPS DRAWER", props);
+  // console.log("PROPS DRAWER", props);
+  // console.log("USER PROOOOOPS.", props.user._id);
   return (
     <nav className={drawerClasses}>
       {props.user ? (

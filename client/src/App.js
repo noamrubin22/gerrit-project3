@@ -23,14 +23,14 @@ const App = props => {
         console.log("setting location: ", result);
         // setUserLocation(result.userLocation);
         console.log("rerender after setting location");
-        // navigator.geolocation.watchPosition(() =>
-        //   setLocation()
-        //     .then(result => {
-        //       setUserChatroom(result.userChatroom);
-        //       setUserLocation(result.userLocation);
-        //     })
-        //     .catch(err => console.log(err))
-        // );
+        navigator.geolocation.watchPosition(() =>
+          setLocation()
+            .then(result => {
+              setUserChatroom(result.userChatroom);
+              setUserLocation(result.userLocation);
+            })
+            .catch(err => console.log(err))
+        );
       })
       .catch(err => console.log(err));
   }, []);

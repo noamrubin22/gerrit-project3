@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { signup } from "../services/auth";
-import {setLocation} from "../services/location";
+import { setLocation } from "../services/location";
+
 
 const Signup = props => {
   const [credentials, setCredentials] = useState({
@@ -23,49 +24,48 @@ const Signup = props => {
       if (data.message) {
         setError(data.message);
         console.log(data.message);
-      } 
-      
-      else {
+      } else {
         // lift the data up to the App state
         props.setUser(data);
         //redirect
         if (!props.userChatroom) {
           props.history.push("/map");
-        }
-        else {
+        } else {
           props.history.push(`/chat/${props.userChatroom}`);
         }
-      };
-    }
-    )};
+      }
+    });
+  };
 
   return (
     <div>
       <form className="form-submission" onSubmit={handleSubmit}>
-          <div className="input-container">
-            <label htmlFor="username">Username: </label>
-            <input
-              className="input-field"
-              type="text"
-              name="username"
-              id="username"
-              value={props.username}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="input-container">
-            <label htmlFor="password">Password: </label>
-            <input
-              className="input-field"
-              type="password"
-              name="password"
-              id="password"
-              value={props.password}
-              onChange={handleChange}
-            />
-          </div>
+        <div className="input-container">
+          <label htmlFor="username">Username: </label>
+          <input
+            className="input-field"
+            type="text"
+            name="username"
+            id="username"
+            value={props.username}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="input-container">
+          <label htmlFor="password">Password: </label>
+          <input
+            className="input-field"
+            type="password"
+            name="password"
+            id="password"
+            value={props.password}
+            onChange={handleChange}
+          />
+        </div>
         {/* {error && <Alert variant="danger">{error}</Alert>} */}
-        <button className="main-cta orange-gradient shadow" type="submit">SIGN UP</button>
+        <button className="main-cta orange-gradient shadow" type="submit">
+          SIGN UP
+        </button>
       </form>
     </div>
   );

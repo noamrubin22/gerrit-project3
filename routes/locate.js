@@ -23,9 +23,9 @@ router.post("/", (req, res) => {
         longitude >= bucket.location[1][0] &&
         longitude <= bucket.location[1][1]
       ))
-      if (currentBucket) {
+      if (currentBucket[0]) {
 
-        res.json(currentBucket.namespace);
+        res.json(currentBucket[0].namespace);
       }
       else {
         res.json("");

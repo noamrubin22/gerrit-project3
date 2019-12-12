@@ -10,6 +10,7 @@ for implementing messaging</a>, so we decided to build a chat platform with pred
 ### Prerequisites
 
 The required packages should be installed by running the following commands:
+
 in the root:
 
 ```
@@ -30,6 +31,7 @@ npm install react-router-dom axios react-map-gl
 ### Testing
 
 To test the code run the following commands:
+
 in the root
 
 ```
@@ -46,7 +48,7 @@ npm start
 
 - [React](https://reactjs.org/) - The web framework used
 - [MongoDB](https://www.mongodb.com/) - Used Database
-- [Node.js](https://nodejs.org/en/) - As our server environment
+- [Node.js](https://nodejs.org/en/) - Our server environment
 
 ## Authors
 

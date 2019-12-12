@@ -15,7 +15,6 @@ router.post("/", (req, res) => {
   Chatroom.find()
     .then(result => {
       allGeobuckets = result;
-      console.log(allGeobuckets);
       //check if user is located in one of the chatrooms
       let currentBucket = allGeobuckets.filter(bucket => (
         latitude <= bucket.location[0][0] &&

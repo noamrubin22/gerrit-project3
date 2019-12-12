@@ -1,18 +1,65 @@
-<h1>Gerrit – Chat with people nearby!</h1>
+# Gerrit – Chat with people nearby!
 
-<p>
-<a href="https://github.com/fabianschu">Fabian Scherer</a>, <a href="https://github.com/arews">Are W. Sandvik</a>, and I, <a href="https://github.com/noamrubin22/">Noam Rubin</a>, did this  
-as our final project as web development students at Ironhack Berlin.
+For our final project as web development students at Ironhack Berlin we created a mobile web application. We decided to build a chat platform with predefined chatrooms that are only open to users in the same approximate geolocation. In other words: It lets you chat to randoms close by.
 
-We wanted to use everything we've learned so far, and create something that would be fun to use. Pierre Portal showed us this <a href="https://github.com/pierreportal/socket-io-lecture-for-ironhack/tree/master/models">cool and very light weight framework 
-for implementing messaging</a>, so we decided to build a chat platform with pre defined chatrooms that are only open to users in the same approximate geo location. In other words: It lets you chat to randoms close by.
-</p>
+To check our deployed version, follow this link: https://justgerrit.herokuapp.com
 
-<h2>Technology used</h2>
-<p>
-On top of the DOM, we use React.js as our main framework. We also use the Mapbox GL JS library for map functionality, and Socket.io for the messaging.
+## Getting started
 
-We use Node.js for packet management, and the Express framework for programming the server side of the application.
+### Prerequisites
 
-For the database we use MongoDB.
-</p>
+The required packages should be installed by running the following commands:
+
+in the root:
+
+```
+npm install
+npm install bootstrap react-bootstrap socket.io
+npm install heroku-ssl-redirect
+node bin/seed
+```
+
+in the client folder:
+
+```
+npm install
+npm install --save passport-local passport bcryptjs  express-session
+npm install react-router-dom axios react-map-gl
+```
+
+### Testing
+
+To test the code run the following commands:
+
+in the root
+
+```
+npm run dev
+```
+
+in the client folder:
+
+```
+npm start
+```
+
+## Built With
+
+- [React](https://reactjs.org/) - The web framework used
+- [MongoDB](https://www.mongodb.com/) - Used Database
+- [Node.js](https://nodejs.org/en/) - Our server environment
+
+## Authors
+
+- **Fabian Scherer** - [github](https://github.com/fabianschu)
+- **Are W. Sandvik** - [github](https://github.com/arews)
+- **Noam Rubin** - [github](https://github.com/noamrubin22)
+
+## Acknowledgments
+
+- Ironhack Berlin
+- Montasar Jarraya (our teacher)
+- Pierre Portal (TA)
+- André de Albuquerque (TA)
+- Dalina Weidinger (TA)
+- Svenja Maria Katharina Weiler (TA)

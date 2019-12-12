@@ -8,7 +8,6 @@ const User = require("../models/User");
 
 /* GET home page */
 router.get("/:chatroom", (req, res) => {
-  console.log("URL parameter: ", req.params);
   Message.find( { chatroom: req.params.chatroom} )
     .populate("posted_by")
     .then(response => {

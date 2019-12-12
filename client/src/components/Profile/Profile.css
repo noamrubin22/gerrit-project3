@@ -38,8 +38,8 @@
   font-style: oblique;
 }
 .main-cta {
-  height: 50px;
-  width: 60%;
+  height: 200px;
+  width: 20px;
   border-radius: 25px;
   border: none;
   align-self: center;
@@ -51,6 +51,10 @@
   justify-content: center;
   margin-top: 15px;
   margin-bottom: 15px;
+}
+
+button {
+  width: 20px;
 }
 
 a {

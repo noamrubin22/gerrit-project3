@@ -1,7 +1,7 @@
 {
   "name": "client",
   "version": "0.1.0",
-  "proxy": "http://8e29ddc0.ngrok.io",
+  "proxy": "http://localhost:5000",
   "private": true,
   "dependencies": {
     "axios": "^0.19.0",

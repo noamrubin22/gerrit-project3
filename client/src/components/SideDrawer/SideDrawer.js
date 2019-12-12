@@ -8,7 +8,7 @@ import "./SideDrawer.css";
 const sideDrawer = props => {
   const handleLogout = () => {
     logout();
-    console.log("props", props);
+    console.log("propsSIDEDRAWER", props);
     props.clearUser(null);
   };
 
@@ -17,13 +17,13 @@ const sideDrawer = props => {
   if (props.show) {
     drawerClasses = "side-drawer open";
   }
-
+  console.log("PROPS DRAWER", props);
   return (
     <nav className={drawerClasses}>
       {props.user ? (
         <>
           <Link to={`/profile/${props.user._id}`}>Profile </Link>
-          <Link to="/chat">Chat </Link>
+          <Link to={`/chat/${props.userChatroom}`}>Chat </Link>
           <Link to="/map">Map </Link>
           <Link to="/" onClick={handleLogout}>
             Logout
@@ -31,8 +31,7 @@ const sideDrawer = props => {
         </>
       ) : (
         <React.Fragment>
-          <Link to="/signup">Signup </Link>
-          <Link to="/login">Login </Link>
+          <Link to="/">Register</Link>
         </React.Fragment>
       )}
     </nav>

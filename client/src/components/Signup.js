@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { signup } from "../services/auth";
 import { setLocation } from "../services/location";
-
 
 const Signup = props => {
   const [credentials, setCredentials] = useState({
@@ -10,6 +9,10 @@ const Signup = props => {
   });
 
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    console.log("mounted or updated");
+  }, []);
 
   const handleChange = event => {
     setCredentials({
@@ -21,17 +24,20 @@ const Signup = props => {
   const handleSubmit = event => {
     event.preventDefault();
     signup(credentials.username, credentials.password).then(data => {
+      console.log("SIGNUP DATAAAA", data);
       if (data.message) {
         setError(data.message);
         console.log(data.message);
       } else {
         // lift the data up to the App state
         props.setUser(data);
+
         //redirect
         if (!props.userChatroom) {
           props.history.push("/map");
         } else {
           props.history.push(`/chat/${props.userChatroom}`);
+          // props.history.push("/chat/${props.userChatroom}");
         }
       }
     });
@@ -62,7 +68,7 @@ const Signup = props => {
             onChange={handleChange}
           />
         </div>
-        {/* {error && <Alert variant="danger">{error}</Alert>} */}
+        {error && <h4 style={{ color: "red" }}>{error}</h4>}
         <button className="main-cta orange-gradient shadow" type="submit">
           SIGN UP
         </button>

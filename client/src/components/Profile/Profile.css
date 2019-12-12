@@ -1,11 +1,11 @@
-/* .profile-page {
+.profile-page {
   padding: 0 35px 0 35px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-content: space-between;
   align-items: center;
-} */
+}
 
 .profile {
   /* padding: 20px; */
@@ -26,7 +26,7 @@
   border-style: inset;
   border-color: #fc625b;
   border-width: 0.6px;
-  border-radius: 14%;
+  border-radius: 30%;
 }
 
 /* .user-info > p {
@@ -41,7 +41,7 @@
 /* button */
 .main-cta {
   height: 50px;
-  width: 60%;
+  width: 100%;
   border-radius: 25px;
   border: none;
   align-self: center;
@@ -63,6 +63,7 @@ a {
   flex-direction: column;
   align-content: center;
   align-items: center;
+  width: 100%;
 }
 .input-container {
   height: 65px;
@@ -75,9 +76,10 @@ a {
   margin-bottom: 5px;
 }
 
-.input-field {
+/* .input-field {
   width: 29em;
-}
+} */
+
 .form-quote {
   display: flex;
   justify-content: space-between;

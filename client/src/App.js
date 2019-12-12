@@ -17,18 +17,20 @@ const App = props => {
   useEffect(() => {
     setLocation()
       .then(result => {
+        setUserChatroom(result.userChatroom);
+        console.log("setting location: ", result);
         setUserLocation(result.userLocation);
+        console.log("rerender after setting location");
+        navigator.geolocation.watchPosition(() =>
+          setLocation()
+            .then(result => {
+              setUserChatroom(result.userChatroom);
+              setUserLocation(result.userLocation);
+            })
+            .catch(err => console.log(err))
+        );
       })
       .catch(err => console.log(err));
-
-    navigator.geolocation.watchPosition(() =>
-      setLocation()
-        .then(result => {
-          setUserChatroom(result.userChatroom);
-          setUserLocation(result.userLocation);
-        })
-        .catch(err => console.log(err))
-    );
   }, []);
 
   return (
@@ -47,10 +49,14 @@ const App = props => {
           )}
         />
         <>
-          <Navbar />
-          <Route exact path="/map">
-            <Map />
-          </Route>
+          <Navbar
+            {...props}
+            user={user}
+            setUser={setUser}
+            userChatroom={userChatroom}
+            clearUser={setUser}
+          />
+          <Route exact path="/map" component={Map} />
           <Route
             exact
             path="/chat"
@@ -69,7 +75,7 @@ const App = props => {
             render={props => {
               // only users can get into chat
               if (user) {
-                return <Profile {...props} user={user} />;
+                return <Profile {...props} user={user} setUser={setUser} />;
               } else {
                 return <Redirect to="/" />;
               }

@@ -1,5 +1,5 @@
 require("dotenv").config();
-
+var sslRedirect = require("heroku-ssl-redirect");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const express = require("express");
@@ -43,6 +43,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+// enable ssl redirect
+app.use(sslRedirect());
 // Express View engine setup
 
 app.use(

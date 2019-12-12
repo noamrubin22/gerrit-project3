@@ -1,7 +1,7 @@
 {
   "name": "client",
   "version": "0.1.0",
-  "proxy": "http://localhost:5555",
+  "proxy": "http://8e29ddc0.ngrok.io",
   "private": true,
   "dependencies": {
     "axios": "^0.19.0",
@@ -24,12 +24,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build-dev": "dotenv -e .env.development react-scripts build",
-    "build-prod": "dotenv -e .env.production react-scripts build",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
-},
+  },
   "eslintConfig": {
     "extends": "react-app"
   },

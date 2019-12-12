@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { login } from "../services/auth";
 import { Alert } from "react-bootstrap";
 import { setLocation } from "../services/location";
-
 
 const Login = props => {
   const [credentials, setCredentials] = useState({
@@ -11,6 +10,10 @@ const Login = props => {
   });
 
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    console.log("mounted or updated");
+  }, []);
 
   const handleChange = event => {
     setCredentials({
@@ -61,7 +64,7 @@ const Login = props => {
             onChange={handleChange}
           />
         </div>
-        {/* {error && <Alert variant="danger">{error}</Alert>} */}
+        {error && <h4 style={{ color: "red" }}>{error}</h4>}
         <button className="main-cta orange-gradient shadow" type="submit">
           LOG IN
         </button>
